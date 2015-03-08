@@ -54,16 +54,20 @@ void setup()
 
 
 int mSpeed = 0;
+int PIN = 0;
+
 char serialInput = '0';
 
 void loop()
 {
+	serialInput = '0';
+	
 	if (Serial.available() > 0) 
 	{
 		switch(Serial.read())
 		{
 			case 'N':
-				Serial.println("Navigation");
+				Serial.println("Navigation Test");
 				
 				mSpeed = 0;
 				if (Serial.available() > 0) 
@@ -205,26 +209,55 @@ void loop()
 								mSpeed += 2;
 								break;
 						}//end switch
+						
+						Serial.print("Speed = ");
+						Serial.println(mSpeed);
+						
+						analogWrite(MFR_PWM_PIN, mSpeed);
+						analogWrite(MFL_PWM_PIN, mSpeed);
+						
+						analogWrite(MBR_PWM_PIN, mSpeed);
+						analogWrite(MBL_PWM_PIN, mSpeed);
 					}//end while
 				}//end If
 				break;
 			case 'A':
-				
-				
-				
+				Serial.println("Arm Test");
+				if (Serial.available() > 0) 
+				{	
+					while(serialInput != '<')
+					{
+						serialInput = Serial.read();
+						switch(serialInput)
+						{
+							case 'P': // Sets the PIN to be ATTached
+								
+								if (Serial.available() > 0) 
+									while(serialInput != '<')
+									{
+										Serial.print("Enter PIN -> ");
+										SerialInput = Serial.read();
+										
+										PIN = serialInput;
+										
+										Serial.print("Input = ");
+										Serial.println(PIN);
+										
+										myservo.attach(PIN);
+									}
+								{
+								break;
+							case 'A'
+								
+								break;
+						}//end switch
+					}//end while
+				}//end If
 				break;
 		} // end Switch
-		
-		Serial.print("---MAIN MENU---")
-		Serial.print("Speed = ");
-		Serial.println(mSpeed);
-		
-		analogWrite(MFR_PWM_PIN, mSpeed);
-		analogWrite(MFL_PWM_PIN, mSpeed);
-		
-		analogWrite(MBR_PWM_PIN, mSpeed);
-		analogWrite(MBL_PWM_PIN, mSpeed);
-	} // end If 
+	} // end If
+	Serial.print("---MAIN MENU---")
+	
 } // end void loop()
 
 
