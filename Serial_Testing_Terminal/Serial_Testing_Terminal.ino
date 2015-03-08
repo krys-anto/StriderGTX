@@ -6,12 +6,12 @@
 #define MFL_B_PIN 		46
 #define MFL_PWM_PIN	5	 // PULSE WIDTH MODULATION PIN
 
-#define MBR_A_PIN		38	//BACK RIGHT MOTOR
-#define MBR_B_PIN		40
+#define MBR_A_PIN	38	//BACK RIGHT MOTOR
+#define MBR_B_PIN	40
 #define MBR_PWM_PIN	8	// PULSE WIDTH MODULATION PIN
 
-#define MBL_A_PIN		44	//BACK LEFT MOTOR
-#define MBL_B_PIN		42
+#define MBL_A_PIN	44	//BACK LEFT MOTOR
+#define MBL_B_PIN	42
 #define MBL_PWM_PIN	6 	// PULSE WIDTH MODULATION PIN 
 
 void setup()
@@ -61,6 +61,9 @@ void loop()
 	{
 		switch(Serial.read())
 		{
+			case 'Navi'
+				Serial.println("Navi");
+				break;
 			case 'F': // Forward Test
 				
 				Serial.println("Motor Forward Test Low, High");
@@ -189,9 +192,9 @@ void loop()
 				mSpeed = 225;
 				break;
 				
-            case 'I':
-               	mSpeed += 2;
-                break;	
+		        case 'I':
+		               	mSpeed += 2;
+		                break;	
 				 
 		} // end Switch
 		
