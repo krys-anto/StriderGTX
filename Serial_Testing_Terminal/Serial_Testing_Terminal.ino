@@ -1,3 +1,7 @@
+#include <Servo.h>
+
+Servo myservo;
+
 #define MFR_A_PIN	34   	// FRONT RIGHT MOTOR
 #define MFR_B_PIN	36 
 #define MFR_PWM_PIN	7 	// PULSE WIDTH MODULATION PIN
@@ -54,13 +58,18 @@ void setup()
 
 
 int mSpeed = 0;
-int PIN = 0;
+int PIN = -1;
+int ANG = -1;
 
+char buffer[] = {' ',' ',' ',' ',' ',' ',' '}; // Receive up to 7 bytes
 char serialInput = '0';
 
 void loop()
 {
 	serialInput = '0';
+	Serial.println("---MAIN MENU---");
+	
+	while (!Serial.available());
 	
 	if (Serial.available() > 0) 
 	{
@@ -223,42 +232,62 @@ void loop()
 				break;
 			case 'A':
 				Serial.println("Arm Test");
-				if (Serial.available() > 0) 
-				{	
+                                        //Serial.println("1");	
 					while(serialInput != '<')
 					{
+                                                //Serial.println("2");
+                                                while (!Serial.available());
+                                                
 						serialInput = Serial.read();
+                                                Serial.println(serialInput);
+                                                
 						switch(serialInput)
 						{
 							case 'P': // Sets the PIN to be ATTached
-								
-								if (Serial.available() > 0) 
-									while(serialInput != '<')
-									{
-										Serial.print("Enter PIN -> ");
-										SerialInput = Serial.read();
-										
-										PIN = serialInput;
-										
-										Serial.print("Input = ");
-										Serial.println(PIN);
-										
-										myservo.attach(PIN);
-									}
+								PIN = -1;
+								for(int i = 0; i < 6; i++)
 								{
-								break;
-							case 'A'
+									buffer[i] = ' ';
+								}
 								
+								while (!Serial.available()); // Wait for character
+								while(!(PIN > 0))
+								{
+									Serial.print("Enter PIN -> ");
+									while (!Serial.available()); // Wait for character
+									Serial.readBytesUntil('n', buffer, 7);
+									PIN = atoi(buffer);
+									
+									Serial.println(PIN);
+								}//end While
+
+                                                                myservo.attach(PIN);
+                                                                myservo.write(180);
+                                                                
+								break;
+							case 'R':
+								ANG = -1;
+								for(int i = 0; i < 6; i++)
+								{
+									buffer[i] = ' ';
+								}
+								
+								while (!Serial.available()); // Wait for character
+								while(!(ANG > 0))
+								{
+                                                                        Serial.print("Enter Angle -> ");
+									while (!Serial.available()); // Wait for character
+									Serial.readBytesUntil('n', buffer, 7);
+									ANG = atoi(buffer);
+									
+                                                                        Serial.println(ANG);
+								}//end While
+								
+								myservo.write(ANG);
 								break;
 						}//end switch
 					}//end while
-				}//end If
 				break;
 		} // end Switch
 	} // end If
-	Serial.print("---MAIN MENU---")
-	
 } // end void loop()
-
-
-
