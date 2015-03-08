@@ -1,9 +1,9 @@
-#define MFR_A_PIN		34   	// FRONT RIGHT MOTOR
-#define MFR_B_PIN		36 
+#define MFR_A_PIN	34   	// FRONT RIGHT MOTOR
+#define MFR_B_PIN	36 
 #define MFR_PWM_PIN	7 	// PULSE WIDTH MODULATION PIN
 
-#define MFL_A_PIN		48	//FRONT LEFT MOTOR
-#define MFL_B_PIN 		46
+#define MFL_A_PIN	48	//FRONT LEFT MOTOR
+#define MFL_B_PIN 	46
 #define MFL_PWM_PIN	5	 // PULSE WIDTH MODULATION PIN
 
 #define MBR_A_PIN	38	//BACK RIGHT MOTOR
@@ -54,6 +54,7 @@ void setup()
 
 
 int mSpeed = 0;
+char serialInput = '0';
 
 void loop()
 {
@@ -61,143 +62,160 @@ void loop()
 	{
 		switch(Serial.read())
 		{
-			case 'Navi'
-				Serial.println("Navi");
-				break;
-			case 'F': // Forward Test
+			case 'N':
+				Serial.println("Navigation");
 				
-				Serial.println("Motor Forward Test Low, High");
-					
-				// Setting  direction 
-				
-				digitalWrite(MFR_A_PIN, LOW);
-				digitalWrite(MFR_B_PIN, HIGH);
-				
-				digitalWrite(MFL_A_PIN, HIGH);
-				digitalWrite(MFL_B_PIN, LOW);
-				
-				digitalWrite(MBR_A_PIN, LOW);
-				digitalWrite(MBR_B_PIN, HIGH);
-				
-				digitalWrite(MBL_A_PIN, HIGH);
-				digitalWrite(MBL_B_PIN, LOW);
-				
-					// Sending Instruction to start movement
-				
-				break;
-			
-			case 'B': // Motor BACKWARD
-			
-				Serial.println("Motor Forward Test High, Low");
-				
-				// Setting  direction
-					
-				digitalWrite(MFR_A_PIN, HIGH);
-				digitalWrite(MFR_B_PIN, LOW);
-				
-				digitalWrite(MFL_A_PIN, LOW);
-				digitalWrite(MFL_B_PIN, HIGH);
-				
-				digitalWrite(MBR_A_PIN, HIGH);
-				digitalWrite(MBR_B_PIN, LOW);
-				
-				digitalWrite(MBL_A_PIN, LOW);
-				digitalWrite(MBL_B_PIN, HIGH);
-				
-				// Sending Instruction to start movement
-			
-				break;
-				
-			case 'R': // Motor TURN RIGHT
-			
-				Serial.println("Motor Forward Test High, Low");
-				
-				// Setting  direction
-					
-				digitalWrite(MFR_A_PIN, HIGH);
-				digitalWrite(MFR_B_PIN, LOW);
-				
-				digitalWrite(MFL_A_PIN, HIGH);
-				digitalWrite(MFL_B_PIN, LOW);
-				
-				digitalWrite(MBR_A_PIN, HIGH);
-				digitalWrite(MBR_B_PIN, LOW);
-				
-				digitalWrite(MBL_A_PIN, HIGH);
-				digitalWrite(MBL_B_PIN, LOW);
-				
-				// Sending Instruction to start movement
-			
-				break;
-				
-			case 'L': // Motor TURN LEFT
-			
-				Serial.println("Motor Forward Test High, Low");
-				
-				// Setting  direction
-					
-				digitalWrite(MFR_A_PIN, LOW);
-				digitalWrite(MFR_B_PIN, HIGH);
-				
-				digitalWrite(MFL_A_PIN, LOW);
-				digitalWrite(MFL_B_PIN, HIGH);
-				
-				digitalWrite(MBR_A_PIN, LOW);
-				digitalWrite(MBR_B_PIN, HIGH);
-				
-				digitalWrite(MBL_A_PIN, LOW);
-				digitalWrite(MBL_B_PIN, HIGH);
-				
-				// Sending Instruction to start movement
-			
-				break;
-			
-			case '0':
 				mSpeed = 0;
-				break;
+				if (Serial.available() > 0) 
+				{	
+					while(serialInput != '<')
+					{
+						serialInput = Serial.read();
+						switch(serialInput)
+						{
+							case 'F': // Forward Test
 				
-			case '1':
-				mSpeed = 25;
+								Serial.println("Motor Forward Test Low, High");
+									
+								// Setting  direction 
+								
+								digitalWrite(MFR_A_PIN, LOW);
+								digitalWrite(MFR_B_PIN, HIGH);
+								
+								digitalWrite(MFL_A_PIN, HIGH);
+								digitalWrite(MFL_B_PIN, LOW);
+								
+								digitalWrite(MBR_A_PIN, LOW);
+								digitalWrite(MBR_B_PIN, HIGH);
+								
+								digitalWrite(MBL_A_PIN, HIGH);
+								digitalWrite(MBL_B_PIN, LOW);
+								
+									// Sending Instruction to start movement
+								
+								break;
+							
+							case 'B': // Motor BACKWARD
+							
+								Serial.println("Motor Backward Test High, Low");
+								
+								// Setting  direction
+									
+								digitalWrite(MFR_A_PIN, HIGH);
+								digitalWrite(MFR_B_PIN, LOW);
+								
+								digitalWrite(MFL_A_PIN, LOW);
+								digitalWrite(MFL_B_PIN, HIGH);
+								
+								digitalWrite(MBR_A_PIN, HIGH);
+								digitalWrite(MBR_B_PIN, LOW);
+								
+								digitalWrite(MBL_A_PIN, LOW);
+								digitalWrite(MBL_B_PIN, HIGH);
+								
+								// Sending Instruction to start movement
+							
+								break;
+								
+							case 'R': // Motor TURN RIGHT
+							
+								Serial.println("Motor Right Test High, Low");
+								
+								// Setting  direction
+									
+								digitalWrite(MFR_A_PIN, HIGH);
+								digitalWrite(MFR_B_PIN, LOW);
+								
+								digitalWrite(MFL_A_PIN, HIGH);
+								digitalWrite(MFL_B_PIN, LOW);
+								
+								digitalWrite(MBR_A_PIN, HIGH);
+								digitalWrite(MBR_B_PIN, LOW);
+								
+								digitalWrite(MBL_A_PIN, HIGH);
+								digitalWrite(MBL_B_PIN, LOW);
+								
+								// Sending Instruction to start movement
+							
+								break;
+								
+							case 'L': // Motor TURN LEFT
+							
+								Serial.println("Motor Forward Test High, Low");
+								
+								// Setting  direction
+									
+								digitalWrite(MFR_A_PIN, LOW);
+								digitalWrite(MFR_B_PIN, HIGH);
+								
+								digitalWrite(MFL_A_PIN, LOW);
+								digitalWrite(MFL_B_PIN, HIGH);
+								
+								digitalWrite(MBR_A_PIN, LOW);
+								digitalWrite(MBR_B_PIN, HIGH);
+								
+								digitalWrite(MBL_A_PIN, LOW);
+								digitalWrite(MBL_B_PIN, HIGH);
+								
+								// Sending Instruction to start movement
+							
+								break;
+							
+							case '0':
+								mSpeed = 0;
+								break;
+								
+							case '1':
+								mSpeed = 25;
+								break;
+								
+							case '2':
+								mSpeed = 50;
+								break;
+								
+							case '3':
+								mSpeed = 75;
+								break;
+								
+							case '4':
+								mSpeed = 100;
+								break;
+								
+							case '5':
+								mSpeed = 125;
+								break;
+								
+							case '6':
+								mSpeed = 150;
+								break;
+								
+							case '7':
+								mSpeed = 175;
+								break;
+								
+							case '8':
+								mSpeed = 200;
+								break;
+								
+							case '9':
+								mSpeed = 225;
+								break;
+								
+							case 'I':
+								mSpeed += 2;
+								break;
+						}//end switch
+					}//end while
+				}//end If
 				break;
+			case 'A':
 				
-			case '2':
-				mSpeed = 50;
+				
+				
 				break;
-				
-			case '3':
-				mSpeed = 75;
-				break;
-				
-			case '4':
-				mSpeed = 100;
-				break;
-				
-			case '5':
-				mSpeed = 125;
-				break;
-				
-			case '6':
-				mSpeed = 150;
-				break;
-				
-			case '7':
-				mSpeed = 175;
-				break;
-				
-			case '8':
-				mSpeed = 200;
-				break;
-				
-			case '9':
-				mSpeed = 225;
-				break;
-				
-		        case 'I':
-		               	mSpeed += 2;
-		                break;	
-				 
 		} // end Switch
 		
+		Serial.print("---MAIN MENU---")
 		Serial.print("Speed = ");
 		Serial.println(mSpeed);
 		
