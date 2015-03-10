@@ -69,18 +69,6 @@ void loop()
 {
 	IRL_in = 0;
 	
-	digitalWrite(MFR_A_PIN, HIGH);
-	digitalWrite(MFR_B_PIN, LOW);
-	
-	digitalWrite(MBR_A_PIN, HIGH);
-	digitalWrite(MBR_B_PIN, LOW);
-				
-	digitalWrite(MFL_A_PIN, HIGH);
-	digitalWrite(MFL_B_PIN, LOW);
-		
-	digitalWrite(MBL_A_PIN, HIGH);
-	digitalWrite(MBL_B_PIN, LOW);
-	
 	for(int i = 0; i <= 7; i++)
 	{
 		IRL_in = (IRL_in << 1) + digitalRead(IRL_PIN_s0 + i);
@@ -93,6 +81,12 @@ void loop()
 		case 0b00011111:
 
 			Serial.println("L0000");
+			
+			digitalWrite(MFR_A_PIN, HIGH);
+			digitalWrite(MFR_B_PIN, LOW);
+			
+			digitalWrite(MBR_A_PIN, HIGH);
+			digitalWrite(MBR_B_PIN, LOW);
 		
 			digitalWrite(MFL_A_PIN, LOW);
 			digitalWrite(MFL_B_PIN, HIGH);
@@ -113,11 +107,17 @@ void loop()
 			
 			diff = 20;
 			
+			digitalWrite(MFR_A_PIN, HIGH);
+			digitalWrite(MFR_B_PIN, LOW);
+			
+			digitalWrite(MBR_A_PIN, HIGH);
+			digitalWrite(MBR_B_PIN, LOW);
+		
 			digitalWrite(MFL_A_PIN, LOW);
 			digitalWrite(MFL_B_PIN, HIGH);
 		
 			digitalWrite(MBL_A_PIN, LOW);
-			digitalWrite(MBL_B_PIN, HIGH);
+			digitalWrite(MBL_B_PIN, HIGH); 
 			
 			analogWrite(MFR_PWM_PIN, mPower - diff);
 			analogWrite(MFL_PWM_PIN, mPower);
@@ -130,6 +130,18 @@ void loop()
                         Serial.println("0L000");
 		
 			diff = 50;
+			
+			digitalWrite(MFR_A_PIN, HIGH);
+			digitalWrite(MFR_B_PIN, LOW);
+			
+			digitalWrite(MBR_A_PIN, HIGH);
+			digitalWrite(MBR_B_PIN, LOW);
+						
+			digitalWrite(MFL_A_PIN, HIGH);
+			digitalWrite(MFL_B_PIN, LOW);
+				
+			digitalWrite(MBL_A_PIN, HIGH);
+			digitalWrite(MBL_B_PIN, LOW);
 		
 			analogWrite(MFR_PWM_PIN, mPower - diff);
 			analogWrite(MFL_PWM_PIN, mPower);
@@ -142,6 +154,18 @@ void loop()
                         Serial.println("0LL00");
 		
 			diff = 20;
+			
+			digitalWrite(MFR_A_PIN, HIGH);
+			digitalWrite(MFR_B_PIN, LOW);
+			
+			digitalWrite(MBR_A_PIN, HIGH);
+			digitalWrite(MBR_B_PIN, LOW);
+						
+			digitalWrite(MFL_A_PIN, HIGH);
+			digitalWrite(MFL_B_PIN, LOW);
+				
+			digitalWrite(MBL_A_PIN, HIGH);
+			digitalWrite(MBL_B_PIN, LOW);
 		
 			analogWrite(MFR_PWM_PIN, mPower - diff);
 			analogWrite(MFL_PWM_PIN, mPower);
@@ -152,6 +176,18 @@ void loop()
 		case 0b11100111:
 
                         Serial.println("00L00");
+                        
+                        digitalWrite(MFR_A_PIN, HIGH);
+			digitalWrite(MFR_B_PIN, LOW);
+			
+			digitalWrite(MBR_A_PIN, HIGH);
+			digitalWrite(MBR_B_PIN, LOW);
+						
+			digitalWrite(MFL_A_PIN, HIGH);
+			digitalWrite(MFL_B_PIN, LOW);
+				
+			digitalWrite(MBL_A_PIN, HIGH);
+			digitalWrite(MBL_B_PIN, LOW);
 		
 			analogWrite(MFR_PWM_PIN, mPower);
 			analogWrite(MFL_PWM_PIN, mPower);
@@ -164,6 +200,18 @@ void loop()
 			Serial.println("00LL0");
 			
 			diff = 20;
+			
+			digitalWrite(MFR_A_PIN, HIGH);
+			digitalWrite(MFR_B_PIN, LOW);
+			
+			digitalWrite(MBR_A_PIN, HIGH);
+			digitalWrite(MBR_B_PIN, LOW);
+						
+			digitalWrite(MFL_A_PIN, HIGH);
+			digitalWrite(MFL_B_PIN, LOW);
+				
+			digitalWrite(MBL_A_PIN, HIGH);
+			digitalWrite(MBL_B_PIN, LOW);
 		
 			analogWrite(MFR_PWM_PIN, mPower);
 			analogWrite(MFL_PWM_PIN, mPower - diff);
@@ -176,6 +224,18 @@ void loop()
 			Serial.println("000L0");
 			
 			diff = 50;
+			
+			digitalWrite(MFR_A_PIN, HIGH);
+			digitalWrite(MFR_B_PIN, LOW);
+			
+			digitalWrite(MBR_A_PIN, HIGH);
+			digitalWrite(MBR_B_PIN, LOW);
+						
+			digitalWrite(MFL_A_PIN, HIGH);
+			digitalWrite(MFL_B_PIN, LOW);
+				
+			digitalWrite(MBL_A_PIN, HIGH);
+			digitalWrite(MBL_B_PIN, LOW);
 			
 			analogWrite(MFR_PWM_PIN, mPower);
 			analogWrite(MFL_PWM_PIN, mPower);
@@ -195,7 +255,13 @@ void loop()
 	
 			digitalWrite(MBR_A_PIN, LOW);
 			digitalWrite(MBR_B_PIN, HIGH);
-		
+			
+			digitalWrite(MFL_A_PIN, HIGH);
+			digitalWrite(MFL_B_PIN, LOW);
+				
+			digitalWrite(MBL_A_PIN, HIGH);
+			digitalWrite(MBL_B_PIN, LOW);
+			
 			analogWrite(MFR_PWM_PIN, mPower);
 			analogWrite(MFL_PWM_PIN, mPower - diff);
 			
@@ -212,7 +278,13 @@ void loop()
 	
 			digitalWrite(MBR_A_PIN, LOW);
 			digitalWrite(MBR_B_PIN, HIGH);
-		
+			
+			digitalWrite(MFL_A_PIN, HIGH);
+			digitalWrite(MFL_B_PIN, LOW);
+				
+			digitalWrite(MBL_A_PIN, HIGH);
+			digitalWrite(MBL_B_PIN, LOW);
+			
 			analogWrite(MFR_PWM_PIN, mPower);
 			analogWrite(MFL_PWM_PIN, mPower);
 			
