@@ -63,7 +63,12 @@ void loop()
 	switch(buffer[0])
 	{
 		case 'R':
-			Serial.println("Right Arm");
+			Serial.print("Right Arm, ");
+			Serial.print("Servo = ");
+			Serial.print(buffer[1]);
+			Serial.print(", Angle = ");
+			Serial.println(ang);
+			
 			switch(buffer[1])
 			{
 				case '1':
@@ -91,6 +96,9 @@ void loop()
 		default:
 			break;
 	}
+	
+	Serial.print("Servo = ");
+	Serial.print(buffer[1]);
 	
 	for(int i = 0; i < 3; i++)
 	{
