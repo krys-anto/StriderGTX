@@ -40,7 +40,7 @@ void setup()
 	rArm_Servo4.write(5);
 	rArm_Servo5.write(5);
 	
-	lArm_Servo1.write(5);
+	lArm_Servo1.write(180);
 	lArm_Servo2.write(5);
 	lArm_Servo3.write(5);
 	lArm_Servo4.write(5);
@@ -185,81 +185,81 @@ void loop()
 					{
 						for(int pos = currentAng; pos < ang; pos += 1) 	// goes from 0 degrees to 180 degrees 
 						{						// in steps of 1 degree 
-							rArm_Servo1.write(pos);		// tell servo to go to position in variable 'pos' 
+							lArm_Servo1.write(pos);		// tell servo to go to position in variable 'pos' 
 							delay(15);			// waits 15ms for the servo to reach the position 
 						}	
 					}else{
 						for(int pos = currentAng; pos > ang; pos -= 1) 	// goes from 0 degrees to 180 degrees 
 						{						// in steps of 1 degree 
-							rArm_Servo1.write(pos);		// tell servo to go to position in variable 'pos' 
+							lArm_Servo1.write(pos);		// tell servo to go to position in variable 'pos' 
 							delay(15);			// waits 15ms for the servo to reach the position 
 						}
 					}
 					break;
 				case '2':
-					currentAng = rArm_Servo2.read();
+					currentAng = lArm_Servo2.read();
 					if(currentAng < ang)
 					{
 						for(int pos = currentAng; pos < ang; pos += 1) 	// goes from 0 degrees to 180 degrees 
 						{						// in steps of 1 degree 
-							rArm_Servo2.write(pos);		// tell servo to go to position in variable 'pos' 
+							lArm_Servo2.write(pos);		// tell servo to go to position in variable 'pos' 
 							delay(15);			// waits 15ms for the servo to reach the position 
 						}	
 					}else{
 						for(int pos = currentAng; pos > ang; pos -= 1) 	// goes from 0 degrees to 180 degrees 
 						{						// in steps of 1 degree 
-							rArm_Servo2.write(pos);		// tell servo to go to position in variable 'pos' 
+							lArm_Servo2.write(pos);		// tell servo to go to position in variable 'pos' 
 							delay(15);			// waits 15ms for the servo to reach the position 
 						}
 					}
 					break;
 				case '3':
-					currentAng = rArm_Servo3.read();
+					currentAng = lArm_Servo3.read();
 					if(currentAng < ang)
 					{
 						for(int pos = currentAng; pos < ang; pos += 1) 	// goes from 0 degrees to 180 degrees 
 						{						// in steps of 1 degree 
-							rArm_Servo3.write(pos);		// tell servo to go to position in variable 'pos' 
+							lArm_Servo3.write(pos);		// tell servo to go to position in variable 'pos' 
 							delay(15);			// waits 15ms for the servo to reach the position 
 						}	
 					}else{
 						for(int pos = currentAng; pos > ang; pos -= 1) 	// goes from 0 degrees to 180 degrees 
 						{						// in steps of 1 degree 
-							rArm_Servo3.write(pos);		// tell servo to go to position in variable 'pos' 
+							lArm_Servo3.write(pos);		// tell servo to go to position in variable 'pos' 
 							delay(15);			// waits 15ms for the servo to reach the position 
 						}
 					}
 					break;
 				case '4':
-					currentAng = rArm_Servo4.read();
+					currentAng = lArm_Servo4.read();
 					if(currentAng < ang)
 					{
 						for(int pos = currentAng; pos < ang; pos += 1) 	// goes from 0 degrees to 180 degrees 
 						{						// in steps of 1 degree 
-							rArm_Servo4.write(pos);		// tell servo to go to position in variable 'pos' 
+							lArm_Servo4.write(pos);		// tell servo to go to position in variable 'pos' 
 							delay(15);			// waits 15ms for the servo to reach the position 
 						}	
 					}else{
 						for(int pos = currentAng; pos > ang; pos -= 1) 	// goes from 0 degrees to 180 degrees 
 						{						// in steps of 1 degree 
-							rArm_Servo4.write(pos);		// tell servo to go to position in variable 'pos' 
+							lArm_Servo4.write(pos);		// tell servo to go to position in variable 'pos' 
 							delay(15);			// waits 15ms for the servo to reach the position 
 						}
 					}
 					break;
 				case '5':
-					currentAng = rArm_Servo5.read();
+					currentAng = lArm_Servo5.read();
 					if(currentAng < ang)
 					{
 						for(int pos = currentAng; pos < ang; pos += 1) 	// goes from 0 degrees to 180 degrees 
 						{						// in steps of 1 degree 
-							rArm_Servo5.write(pos);		// tell servo to go to position in variable 'pos' 
+							lArm_Servo5.write(pos);		// tell servo to go to position in variable 'pos' 
 							delay(15);			// waits 15ms for the servo to reach the position 
 						}	
 					}else{
 						for(int pos = currentAng; pos > ang; pos -= 1) 	// goes from 0 degrees to 180 degrees 
 						{						// in steps of 1 degree 
-							rArm_Servo5.write(pos);		// tell servo to go to position in variable 'pos' 
+							lArm_Servo5.write(pos);		// tell servo to go to position in variable 'pos' 
 							delay(15);			// waits 15ms for the servo to reach the position 
 						}
 					}
