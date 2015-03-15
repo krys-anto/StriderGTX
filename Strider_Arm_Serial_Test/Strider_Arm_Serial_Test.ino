@@ -23,7 +23,7 @@ void setup()
 	Serial.begin(9600); //Opens serial connection at 9600 baud rate
 	
 	rArm_Servo1.attach(42); // Attaches(inputs the pin out to the Servo object) class) the servos to their respective pins
-	rArm_Servo2.attach(44);
+	rArm_Servo2.attach(44); 
 	rArm_Servo3.attach(46);
 	rArm_Servo4.attach(48);
 	rArm_Servo5.attach(50);
@@ -180,7 +180,7 @@ void loop()
 			switch(buffer[1])
 			{
 				case '1':
-					currentAng = rArm_Servo1.read();
+					currentAng = lArm_Servo1.read();
 					if(currentAng < ang)
 					{
 						for(int pos = currentAng; pos < ang; pos += 1) 	// goes from 0 degrees to 180 degrees 
