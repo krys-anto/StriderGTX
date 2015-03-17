@@ -8,6 +8,7 @@ Servo rArm_Servo5;
 
 Servo lArm_Servo1;
 Servo lArm_Servo2;
+Servo lArm_Servo2b;
 Servo lArm_Servo3;
 Servo lArm_Servo4;
 Servo lArm_Servo5;
@@ -23,16 +24,17 @@ void setup()
 	Serial.begin(9600); //Opens serial connection at 9600 baud rate
 	
 	rArm_Servo1.attach(42); // Attaches(inputs the pin out to the Servo object) class) the servos to their respective pins
-	rArm_Servo2.attach(44); 
+	rArm_Servo2.attach(44);
 	rArm_Servo3.attach(46);
 	rArm_Servo4.attach(48);
 	rArm_Servo5.attach(50);
 	
 	lArm_Servo1.attach(43); // Attaches(inputs the pin out to the Servo object) class) the servos to their respective pins
 	lArm_Servo2.attach(45);
-	lArm_Servo3.attach(47);
-	lArm_Servo4.attach(49);
-	lArm_Servo5.attach(51);
+	lArm_Servo2b.attach(47);
+	lArm_Servo3.attach(49);
+	lArm_Servo4.attach(51);
+	lArm_Servo5.attach(53);
 	
 	rArm_Servo1.write(5);
 	rArm_Servo2.write(5);
@@ -41,9 +43,10 @@ void setup()
 	rArm_Servo5.write(5);
 	
 	lArm_Servo1.write(180);
-	lArm_Servo2.write(5);
-	lArm_Servo3.write(5);
-	lArm_Servo4.write(5);
+	lArm_Servo2.write(170);
+	lArm_Servo2b.write(180);
+	lArm_Servo3.write(180);
+	lArm_Servo4.write(180);
 	lArm_Servo5.write(5);
 }
 
@@ -203,12 +206,14 @@ void loop()
 						for(int pos = currentAng; pos < ang; pos += 1) 	// goes from 0 degrees to 180 degrees 
 						{						// in steps of 1 degree 
 							lArm_Servo2.write(pos);		// tell servo to go to position in variable 'pos' 
+							lArm_Servo2b.write(pos + 10);
 							delay(15);			// waits 15ms for the servo to reach the position 
 						}	
 					}else{
 						for(int pos = currentAng; pos > ang; pos -= 1) 	// goes from 0 degrees to 180 degrees 
 						{						// in steps of 1 degree 
 							lArm_Servo2.write(pos);		// tell servo to go to position in variable 'pos' 
+							lArm_Servo2b.write(pos + 10);
 							delay(15);			// waits 15ms for the servo to reach the position 
 						}
 					}
