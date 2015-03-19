@@ -5,6 +5,7 @@ Servo rArm_Servo2;
 Servo rArm_Servo3;
 Servo rArm_Servo4;
 Servo rArm_Servo5;
+Servo rClaw;
 
 Servo lArm_Servo1;
 Servo lArm_Servo2;
@@ -12,6 +13,7 @@ Servo lArm_Servo2b;
 Servo lArm_Servo3;
 Servo lArm_Servo4;
 Servo lArm_Servo5;
+Servo lClaw;
 
 int ang = 0;
 int currentAng = 0;
@@ -21,6 +23,8 @@ char pos[] = {' ', ' ', ' '};
 
 int ang2;
 int ang3;
+
+int maxAng;
 
 void setup()
 {
@@ -34,7 +38,7 @@ void setup()
 	
 	lArm_Servo1.write(180);
 	lArm_Servo2.write(170);
-	lArm_Servo2b.write(180);
+	lArm_Servo2b.write(175);
 	lArm_Servo3.write(170);
 	lArm_Servo4.write(170);
 	lArm_Servo5.write(175);
@@ -163,19 +167,32 @@ void loop()
 					}
 					break;
 				case 'P':
-					ang2 = rArm_Servo2.read();
-					ang3 = rArm_Servo3.read();
 					
-					Serial.println(" ");
-					Serial.println(ang2);
-					Serial.println(ang3);
+					maxAng = max(abs(rArm_Servo2.read() - 120), max(abs(rArm_Servo3.read() - 45), abs(rArm_Servo3.read() - 45)));
 					
-					while(rArm_Servo2.read() != 120 && rArm_Servo2.read() != 45)
+					for(int i = 0; i < maxAng; i++)
 					{
-						rArm_Servo2.write((rArm_Servo2.read() < 90) ? rArm_Servo2.read() + 1 : rArm_Servo2.read() - 1);
+						rArm_Servo2.write((rArm_Servo2.read() < 130) ? rArm_Servo2.read() + 1 : rArm_Servo2.read() - 1);
 						rArm_Servo3.write((rArm_Servo3.read() < 45) ? rArm_Servo3.read() + 1 : rArm_Servo3.read() - 1);
-					
+						rArm_Servo4.write((rArm_Servo3.read() < 45) ? rArm_Servo4.read() + 1 : rArm_Servo4.read() - 1);
 						delay(15);
+					}
+					break;
+				case 'C':
+					currentAng = rClaw.read();
+					if(currentAng < ang)
+					{
+						for(int pos = currentAng; pos < ang; pos += 1) 	// goes from 0 degrees to 180 degrees 
+						{						// in steps of 1 degree 
+							rClaw.write(pos);		// tell servo to go to position in variable 'pos' 
+							delay(15);			// waits 15ms for the servo to reach the position 
+						}	
+					}else{
+						for(int pos = currentAng; pos > ang; pos -= 1) 	// goes from 0 degrees to 180 degrees 
+						{						// in steps of 1 degree 
+							rClaw.write(pos);		// tell servo to go to position in variable 'pos' 
+							delay(15);			// waits 15ms for the servo to reach the position 
+						}
 					}
 					break;
 				default:
@@ -301,6 +318,7 @@ void loop()
 			rArm_Servo3.attach(46);
 			rArm_Servo4.attach(48);
 			rArm_Servo5.attach(50);
+			rClaw.attach(9);
 			
 			lArm_Servo1.attach(43); // Attaches(inputs the pin out to the Servo object) class) the servos to their respective pins
 			lArm_Servo2.attach(45);
