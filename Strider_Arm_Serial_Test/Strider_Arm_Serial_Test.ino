@@ -23,19 +23,6 @@ void setup()
 {
 	Serial.begin(9600); //Opens serial connection at 9600 baud rate
 	
-	rArm_Servo1.attach(42); // Attaches(inputs the pin out to the Servo object) class) the servos to their respective pins
-	rArm_Servo2.attach(44);
-	rArm_Servo3.attach(46);
-	rArm_Servo4.attach(48);
-	rArm_Servo5.attach(50);
-	
-	lArm_Servo1.attach(43); // Attaches(inputs the pin out to the Servo object) class) the servos to their respective pins
-	lArm_Servo2.attach(45);
-	lArm_Servo2b.attach(47);
-	lArm_Servo3.attach(49);
-	lArm_Servo4.attach(51);
-	lArm_Servo5.attach(53);
-	
 	rArm_Servo1.write(5);
 	rArm_Servo2.write(5);
 	rArm_Servo3.write(5);
@@ -274,6 +261,34 @@ void loop()
 					Serial.println(buffer[1]);
 					break;
 			}
+			break;
+		case 'D':
+			rArm_Servo1.detach(42); // detaches(inputs the pin out to the Servo object) class) the servos to their respective pins
+			rArm_Servo2.detach(44);
+			rArm_Servo3.detach(46);
+			rArm_Servo4.detach(48);
+			rArm_Servo5.detach(50);
+			
+			lArm_Servo1.detach(43); // detaches(inputs the pin out to the Servo object) class) the servos to their respective pins
+			lArm_Servo2.detach(45);
+			lArm_Servo2b.detach(47);
+			lArm_Servo3.detach(49);
+			lArm_Servo4.detach(51);
+			lArm_Servo5.detach(53);
+			break;
+		case 'A':
+			rArm_Servo1.attach(42); // Attaches(inputs the pin out to the Servo object) class) the servos to their respective pins
+			rArm_Servo2.attach(44);
+			rArm_Servo3.attach(46);
+			rArm_Servo4.attach(48);
+			rArm_Servo5.attach(50);
+			
+			lArm_Servo1.attach(43); // Attaches(inputs the pin out to the Servo object) class) the servos to their respective pins
+			lArm_Servo2.attach(45);
+			lArm_Servo2b.attach(47);
+			lArm_Servo3.attach(49);
+			lArm_Servo4.attach(51);
+			lArm_Servo5.attach(53);
 			break;
 		default:
 			break;
