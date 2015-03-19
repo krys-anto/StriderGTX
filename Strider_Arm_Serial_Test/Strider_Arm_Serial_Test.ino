@@ -263,18 +263,18 @@ void loop()
 			}
 			break;
 		case 'D':
-			rArm_Servo1.detach(42); // detaches(inputs the pin out to the Servo object) class) the servos to their respective pins
-			rArm_Servo2.detach(44);
-			rArm_Servo3.detach(46);
-			rArm_Servo4.detach(48);
-			rArm_Servo5.detach(50);
+			rArm_Servo1.detach(); // detaches(inputs the pin out to the Servo object) class) the servos to their respective pins
+			rArm_Servo2.detach();
+			rArm_Servo3.detach();
+			rArm_Servo4.detach();
+			rArm_Servo5.detach();
 			
-			lArm_Servo1.detach(43); // detaches(inputs the pin out to the Servo object) class) the servos to their respective pins
-			lArm_Servo2.detach(45);
-			lArm_Servo2b.detach(47);
-			lArm_Servo3.detach(49);
-			lArm_Servo4.detach(51);
-			lArm_Servo5.detach(53);
+			lArm_Servo1.detach(); // detaches(inputs the pin out to the Servo object) class) the servos to their respective pins
+			lArm_Servo2.detach();
+			lArm_Servo2b.detach();
+			lArm_Servo3.detach();
+			lArm_Servo4.detach();
+			lArm_Servo5.detach();
 			break;
 		case 'A':
 			rArm_Servo1.attach(42); // Attaches(inputs the pin out to the Servo object) class) the servos to their respective pins
