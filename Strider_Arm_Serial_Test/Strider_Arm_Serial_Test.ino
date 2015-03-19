@@ -19,6 +19,9 @@ int currentAng = 0;
 char buffer[] = {' ',' ',' ',' ',' ',' ',' '}; // Receive up to 7 bytes (Used to store the input from communication)
 char pos[] = {' ', ' ', ' '};
 
+int ang2;
+int ang3;
+
 void setup()
 {
 	Serial.begin(9600); //Opens serial connection at 9600 baud rate
@@ -32,9 +35,9 @@ void setup()
 	lArm_Servo1.write(180);
 	lArm_Servo2.write(170);
 	lArm_Servo2b.write(180);
-	lArm_Servo3.write(180);
-	lArm_Servo4.write(180);
-	lArm_Servo5.write(5);
+	lArm_Servo3.write(170);
+	lArm_Servo4.write(170);
+	lArm_Servo5.write(175);
 }
 
 void loop()
@@ -157,6 +160,22 @@ void loop()
 							rArm_Servo5.write(pos);		// tell servo to go to position in variable 'pos' 
 							delay(15);			// waits 15ms for the servo to reach the position 
 						}
+					}
+					break;
+				case 'P':
+					ang2 = rArm_Servo2.read();
+					ang3 = rArm_Servo3.read();
+					
+					Serial.println(" ");
+					Serial.println(ang2);
+					Serial.println(ang3);
+					
+					while(rArm_Servo2.read() != 120 && rArm_Servo2.read() != 45)
+					{
+						rArm_Servo2.write((rArm_Servo2.read() < 90) ? rArm_Servo2.read() + 1 : rArm_Servo2.read() - 1);
+						rArm_Servo3.write((rArm_Servo3.read() < 45) ? rArm_Servo3.read() + 1 : rArm_Servo3.read() - 1);
+					
+						delay(15);
 					}
 					break;
 				default:
