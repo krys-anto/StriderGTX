@@ -2,6 +2,7 @@
 
 Servo rArm_Servo1;
 Servo rArm_Servo2;
+Servo rArm_Servo2b;
 Servo rArm_Servo3;
 Servo rArm_Servo4;
 Servo rArm_Servo5;
@@ -9,7 +10,6 @@ Servo rClaw;
 
 Servo lArm_Servo1;
 Servo lArm_Servo2;
-Servo lArm_Servo2b;
 Servo lArm_Servo3;
 Servo lArm_Servo4;
 Servo lArm_Servo5;
@@ -30,18 +30,19 @@ void setup()
 {
 	Serial.begin(9600); //Opens serial connection at 9600 baud rate
 	
-	rArm_Servo1.write(5);
-	rArm_Servo2.write(5);
-	rArm_Servo3.write(5);
-	rArm_Servo4.write(5);
-	rArm_Servo5.write(5);
+	rArm_Servo1.write(180);
+	rArm_Servo2.write(170);
+	rArm_Servo2b.write(180);
+	rArm_Servo3.write(170);
+	rArm_Servo4.write(170);
+	rArm_Servo5.write(170);
 	
-	lArm_Servo1.write(180);
-	lArm_Servo2.write(170);
-	lArm_Servo2b.write(175);
-	lArm_Servo3.write(170);
-	lArm_Servo4.write(170);
-	lArm_Servo5.write(175);
+	lArm_Servo1.write(5);
+	lArm_Servo2.write(5);
+	
+	lArm_Servo3.write(5);
+	lArm_Servo4.write(5);
+	lArm_Servo5.write(5);
 }
 
 void loop()
@@ -104,13 +105,15 @@ void loop()
 					{
 						for(int pos = currentAng; pos < ang; pos += 1) 	// goes from 0 degrees to 180 degrees 
 						{						// in steps of 1 degree 
-							rArm_Servo2.write(pos);		// tell servo to go to position in variable 'pos' 
+							rArm_Servo2.write(pos);		// tell servo to go to position in variable 'pos'
+							rArm_Servo2b.write(pos + 10);
 							delay(15);			// waits 15ms for the servo to reach the position 
 						}	
 					}else{
 						for(int pos = currentAng; pos > ang; pos -= 1) 	// goes from 0 degrees to 180 degrees 
 						{						// in steps of 1 degree 
-							rArm_Servo2.write(pos);		// tell servo to go to position in variable 'pos' 
+							rArm_Servo2.write(pos);		// tell servo to go to position in variable 'pos'
+							rArm_Servo2b.write(pos + 10);
 							delay(15);			// waits 15ms for the servo to reach the position 
 						}
 					}
@@ -166,35 +169,6 @@ void loop()
 						}
 					}
 					break;
-				case 'P':
-					
-					maxAng = max(abs(rArm_Servo2.read() - 120), max(abs(rArm_Servo3.read() - 45), abs(rArm_Servo3.read() - 45)));
-					
-					for(int i = 0; i < maxAng; i++)
-					{
-						rArm_Servo2.write((rArm_Servo2.read() < 130) ? rArm_Servo2.read() + 1 : rArm_Servo2.read() - 1);
-						rArm_Servo3.write((rArm_Servo3.read() < 45) ? rArm_Servo3.read() + 1 : rArm_Servo3.read() - 1);
-						rArm_Servo4.write((rArm_Servo3.read() < 45) ? rArm_Servo4.read() + 1 : rArm_Servo4.read() - 1);
-						delay(15);
-					}
-					break;
-				case 'C':
-					currentAng = rClaw.read();
-					if(currentAng < ang)
-					{
-						for(int pos = currentAng; pos < ang; pos += 1) 	// goes from 0 degrees to 180 degrees 
-						{						// in steps of 1 degree 
-							rClaw.write(pos);		// tell servo to go to position in variable 'pos' 
-							delay(15);			// waits 15ms for the servo to reach the position 
-						}	
-					}else{
-						for(int pos = currentAng; pos > ang; pos -= 1) 	// goes from 0 degrees to 180 degrees 
-						{						// in steps of 1 degree 
-							rClaw.write(pos);		// tell servo to go to position in variable 'pos' 
-							delay(15);			// waits 15ms for the servo to reach the position 
-						}
-					}
-					break;
 				default:
 					Serial.print("Buffer[1] -> ");
 					Serial.println(buffer[1]);
@@ -229,14 +203,12 @@ void loop()
 						for(int pos = currentAng; pos < ang; pos += 1) 	// goes from 0 degrees to 180 degrees 
 						{						// in steps of 1 degree 
 							lArm_Servo2.write(pos);		// tell servo to go to position in variable 'pos' 
-							lArm_Servo2b.write(pos + 10);
 							delay(15);			// waits 15ms for the servo to reach the position 
 						}	
 					}else{
 						for(int pos = currentAng; pos > ang; pos -= 1) 	// goes from 0 degrees to 180 degrees 
 						{						// in steps of 1 degree 
 							lArm_Servo2.write(pos);		// tell servo to go to position in variable 'pos' 
-							lArm_Servo2b.write(pos + 10);
 							delay(15);			// waits 15ms for the servo to reach the position 
 						}
 					}
@@ -291,6 +263,34 @@ void loop()
 							delay(15);			// waits 15ms for the servo to reach the position 
 						}
 					}
+				case 'P':
+					maxAng = max(abs(lArm_Servo2.read() - 130), max(abs(lArm_Servo3.read() - 45), abs(lArm_Servo3.read() - 45)));
+					
+					for(int i = 0; i < maxAng; i++)
+					{
+						lArm_Servo2.write((lArm_Servo2.read() < 130) ? rArm_Servo2.read() + 1 : lArm_Servo2.read() - 1);
+						lArm_Servo3.write((lArm_Servo3.read() < 45) ? rArm_Servo3.read() + 1 : lArm_Servo3.read() - 1);
+						lArm_Servo4.write((lArm_Servo4.read() < 45) ? rArm_Servo4.read() + 1 : lArm_Servo4.read() - 1);
+						delay(15);
+					}
+					break;
+				case 'C':
+					currentAng = lClaw.read();
+					if(currentAng < ang)
+					{
+						for(int pos = currentAng; pos < ang; pos += 1) 	// goes from 0 degrees to 180 degrees 
+						{						// in steps of 1 degree 
+							lClaw.write(pos);		// tell servo to go to position in variable 'pos' 
+							delay(15);			// waits 15ms for the servo to reach the position 
+						}	
+					}else{
+						for(int pos = currentAng; pos > ang; pos -= 1) 	// goes from 0 degrees to 180 degrees 
+						{						// in steps of 1 degree 
+							lClaw.write(pos);		// tell servo to go to position in variable 'pos' 
+							delay(15);			// waits 15ms for the servo to reach the position 
+						}
+					}
+					break;
 					break;
 				default:
 					Serial.print("Buffer[1] -> ");
@@ -301,13 +301,13 @@ void loop()
 		case 'D':
 			rArm_Servo1.detach(); // detaches(inputs the pin out to the Servo object) class) the servos to their respective pins
 			rArm_Servo2.detach();
+			rArm_Servo2b.detach();
 			rArm_Servo3.detach();
 			rArm_Servo4.detach();
 			rArm_Servo5.detach();
 			
 			lArm_Servo1.detach(); // detaches(inputs the pin out to the Servo object) class) the servos to their respective pins
 			lArm_Servo2.detach();
-			lArm_Servo2b.detach();
 			lArm_Servo3.detach();
 			lArm_Servo4.detach();
 			lArm_Servo5.detach();
@@ -315,17 +315,18 @@ void loop()
 		case 'A':
 			rArm_Servo1.attach(42); // Attaches(inputs the pin out to the Servo object) class) the servos to their respective pins
 			rArm_Servo2.attach(44);
-			rArm_Servo3.attach(46);
-			rArm_Servo4.attach(48);
-			rArm_Servo5.attach(50);
+			rArm_Servo2b.attach(46);
+			rArm_Servo3.attach(48);
+			rArm_Servo4.attach(50);
+			rArm_Servo5.attach(52);
 			rClaw.attach(9);
 			
 			lArm_Servo1.attach(43); // Attaches(inputs the pin out to the Servo object) class) the servos to their respective pins
 			lArm_Servo2.attach(45);
-			lArm_Servo2b.attach(47);
-			lArm_Servo3.attach(49);
-			lArm_Servo4.attach(51);
-			lArm_Servo5.attach(53);
+			lArm_Servo3.attach(47);
+			lArm_Servo4.attach(49);
+			lArm_Servo5.attach(51);
+			lClaw.attach(10);
 			break;
 		default:
 			break;
