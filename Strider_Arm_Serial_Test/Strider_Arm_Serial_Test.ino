@@ -268,9 +268,9 @@ void loop()
 					
 					for(int i = 0; i < maxAng; i++)
 					{
-						lArm_Servo2.write((lArm_Servo2.read() < 130) ? rArm_Servo2.read() + 1 : lArm_Servo2.read() - 1);
-						lArm_Servo3.write((lArm_Servo3.read() < 45) ? rArm_Servo3.read() + 1 : lArm_Servo3.read() - 1);
-						lArm_Servo4.write((lArm_Servo4.read() < 45) ? rArm_Servo4.read() + 1 : lArm_Servo4.read() - 1);
+						lArm_Servo2.write((lArm_Servo2.read() < 130) ? lArm_Servo2.read() + 1 : lArm_Servo2.read() - 1);
+						lArm_Servo3.write((lArm_Servo3.read() < 45) ? lArm_Servo3.read() + 1 : lArm_Servo3.read() - 1);
+						lArm_Servo4.write((lArm_Servo4.read() < 45) ? lArm_Servo4.read() + 1 : lArm_Servo4.read() - 1);
 						delay(15);
 					}
 					break;
