@@ -348,4 +348,3 @@ void loop()
 		buffer[i] = ' ';
 	}
 }
->>>>>>> origin/master
