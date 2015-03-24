@@ -1,6 +1,5 @@
+#include <Servo.h>
 
-<<<<<<< HEAD
-=======
 Servo rArm_Servo1;
 Servo rArm_Servo2;
 Servo rArm_Servo2b;
