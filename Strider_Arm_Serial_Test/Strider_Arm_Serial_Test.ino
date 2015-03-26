@@ -29,20 +29,6 @@ int maxAng;
 void setup()
 {
 	Serial.begin(9600); //Opens serial connection at 9600 baud rate
-	
-	rArm_Servo1.write(180);
-	rArm_Servo2.write(170);
-	rArm_Servo2b.write(180);
-	rArm_Servo3.write(170);
-	rArm_Servo4.write(170);
-	rArm_Servo5.write(170);
-	
-	lArm_Servo1.write(5);
-	lArm_Servo2.write(5);
-	
-	lArm_Servo3.write(5);
-	lArm_Servo4.write(5);
-	lArm_Servo5.write(5);
 }
 
 void loop()
@@ -78,6 +64,21 @@ void loop()
 	
 	switch(buffer[0])
 	{
+		case 'I':
+			rArm_Servo1.write(180);
+			rArm_Servo2.write(170);
+			rArm_Servo2b.write(180);
+			rArm_Servo3.write(170);
+			rArm_Servo4.write(170);
+			rArm_Servo5.write(170);
+			
+			lArm_Servo1.write(5);
+			lArm_Servo2.write(5);
+			
+			lArm_Servo3.write(5);
+			lArm_Servo4.write(5);
+			lArm_Servo5.write(5);
+			break;
 		case 'R':
 			Serial.print("Right Arm, ");
 			switch(buffer[1])
@@ -169,6 +170,22 @@ void loop()
 						}
 					}
 					break;
+				case 'A':
+					Serial.println("===Current positions:===");
+					Serial.print("Servo 1 =>");
+					Serial.print(rArm_Servo1.read());
+					Serial.print("Servo 2 =>");
+					Serial.print(rArm_Servo2.read());
+					Serial.print("Servo 2b =>");
+					Serial.print(rArm_Servo2b.read());
+					Serial.print("Servo 3 =>");
+					Serial.print(rArm_Servo3.read());
+					Serial.print("Servo 4 =>");
+					Serial.print(rArm_Servo4.read());
+					Serial.print("Servo 5 =>");
+					Serial.print(rArm_Servo5.read());
+					break;
+				case 'N':
 				default:
 					Serial.print("Buffer[1] -> ");
 					Serial.println(buffer[1]);
@@ -291,7 +308,23 @@ void loop()
 						}
 					}
 					break;
+				case 'A':
+					Serial.println("===(Current positions:)===");
+					Serial.print("Servo 1 =>");
+					Serial.print(lArm_Servo1.read());
+					Serial.print("Servo 2 =>");
+					Serial.print(lArm_Servo2.read());
+					Serial.print("Servo 3 =>");
+					Serial.print(lArm_Servo3.read());
+					Serial.print("Servo 4 =>"); 
+					Serial.print(lArm_Servo4.read());
+					Serial.print("Servo 5 =>");
+					Serial.print(lArm_Servo5.read());
 					break;
+				case 'N';
+					
+				
+					break
 				default:
 					Serial.print("Buffer[1] -> ");
 					Serial.println(buffer[1]);
