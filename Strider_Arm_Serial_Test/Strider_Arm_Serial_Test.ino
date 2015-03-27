@@ -186,6 +186,7 @@ void loop()
 					Serial.print(rArm_Servo5.read());
 					break;
 				case 'N':
+					//break;
 				default:
 					Serial.print("Buffer[1] -> ");
 					Serial.println(buffer[1]);
@@ -321,10 +322,8 @@ void loop()
 					Serial.print("Servo 5 =>");
 					Serial.print(lArm_Servo5.read());
 					break;
-				case 'N';
-					
-				
-					break
+				case 'N':
+					break;
 				default:
 					Serial.print("Buffer[1] -> ");
 					Serial.println(buffer[1]);
@@ -346,27 +345,93 @@ void loop()
 			lArm_Servo5.detach();
 			break;
 		case 'A':
-			rArm_Servo1.attach(42); // Attaches(inputs the pin out to the Servo object) class) the servos to their respective pins
-			rArm_Servo2.attach(44);
-			rArm_Servo2b.attach(46);
-			rArm_Servo3.attach(48);
-			rArm_Servo4.attach(50);
-			rArm_Servo5.attach(52);
-			rClaw.attach(9);
-			
-			lArm_Servo1.attach(43); // Attaches(inputs the pin out to the Servo object) class) the servos to their respective pins
-			lArm_Servo2.attach(45);
-			lArm_Servo3.attach(47);
-			lArm_Servo4.attach(49);
-			lArm_Servo5.attach(51);
-			lClaw.attach(10);
+			switch(buffer[2])
+			{
+				case 'A':
+					rArm_Servo1.attach(42); // Attaches(inputs the pin out to the Servo object) class) the servos to their respective pins
+					rArm_Servo2.attach(44);
+					rArm_Servo2b.attach(46);
+					rArm_Servo3.attach(48);
+					rArm_Servo4.attach(50);
+					rArm_Servo5.attach(52);
+					rClaw.attach(9);
+					
+					lArm_Servo1.attach(43); // Attaches(inputs the pin out to the Servo object) class) the servos to their respective pins
+					lArm_Servo2.attach(45);
+					lArm_Servo3.attach(47);
+					lArm_Servo4.attach(49);
+					lArm_Servo5.attach(51);
+					lClaw.attach(10);
+					break;
+				case 'R':
+					switch(buffer[3])
+					{
+						case '1':
+							rArm_Servo1.attach(42);
+							break;
+						case '2':
+							rArm_Servo2.attach(44);
+							rArm_Servo2b.attach(46);
+							break;
+						case '3':
+							rArm_Servo3.attach(48);
+							break;
+						case '4':
+							rArm_Servo4.attach(50);
+							break;
+						case '5':
+							rArm_Servo5.attach(52);
+							break;
+						case 'C':
+							rClaw.attach(9);
+							break;
+						default:
+							Serial.print("buffer[3] => ");
+							Serial.println(buffer[3]);
+							break;
+					}
+					break;
+				case 'L':
+					switch(buffer[3])
+					{
+						case '1':
+							lArm_Servo1.attach(43);
+							break;
+						case '2':
+							lArm_Servo2.attach(45);
+							break;
+						case '3':
+							lArm_Servo3.attach(47);
+							break;
+						case '4':
+							lArm_Servo4.attach(49);
+							break;
+						case '5':
+							lArm_Servo5.attach(51);
+							break;
+						case 'C':
+							lClaw.attach(10);
+							break;
+						default:
+							Serial.print("buffer[3] => ");
+							Serial.println(buffer[3]);
+							break;
+					}
+					break;
+				default:
+					Serial.print("buffer[2] => ");
+					Serial.println(buffer[2]);
+					break;
+			}
 			break;
 		default:
+			Serial.print("buffer[1] => ");
+			Serial.println(buffer[1]);
 			break;
 	}
 	
 	Serial.print("Servo = ");
-	Serial.print(buffer[1]);
+	Serial.println(buffer[1]);
 	Serial.print(", CurrentAngle = ");
 	Serial.println(currentAng);
 	Serial.print(", Angle = ");
