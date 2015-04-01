@@ -173,17 +173,17 @@ void loop()
 				case 'A':
 					Serial.println("===Current positions:===");
 					Serial.print("Servo 1 =>");
-					Serial.print(rArm_Servo1.read());
+					Serial.println(rArm_Servo1.read());
 					Serial.print("Servo 2 =>");
-					Serial.print(rArm_Servo2.read());
+					Serial.println(rArm_Servo2.read());
 					Serial.print("Servo 2b =>");
-					Serial.print(rArm_Servo2b.read());
+					Serial.println(rArm_Servo2b.read());
 					Serial.print("Servo 3 =>");
-					Serial.print(rArm_Servo3.read());
+					Serial.println(rArm_Servo3.read());
 					Serial.print("Servo 4 =>");
-					Serial.print(rArm_Servo4.read());
+					Serial.println(rArm_Servo4.read());
 					Serial.print("Servo 5 =>");
-					Serial.print(rArm_Servo5.read());
+					Serial.println(rArm_Servo5.read());
 					break;
 				case 'N':
 					//break;
@@ -312,15 +312,15 @@ void loop()
 				case 'A':
 					Serial.println("===(Current positions:)===");
 					Serial.print("Servo 1 =>");
-					Serial.print(lArm_Servo1.read());
+					Serial.println(lArm_Servo1.read());
 					Serial.print("Servo 2 =>");
-					Serial.print(lArm_Servo2.read());
+					Serial.println(lArm_Servo2.read());
 					Serial.print("Servo 3 =>");
-					Serial.print(lArm_Servo3.read());
+					Serial.println(lArm_Servo3.read());
 					Serial.print("Servo 4 =>"); 
-					Serial.print(lArm_Servo4.read());
+					Serial.println(lArm_Servo4.read());
 					Serial.print("Servo 5 =>");
-					Serial.print(lArm_Servo5.read());
+					Serial.println(lArm_Servo5.read());
 					break;
 				case 'N':
 					break;
@@ -430,6 +430,7 @@ void loop()
 			break;
 	}
 	
+	Serial.println();
 	Serial.print("Servo = ");
 	Serial.println(buffer[1]);
 	Serial.print(", CurrentAngle = ");
