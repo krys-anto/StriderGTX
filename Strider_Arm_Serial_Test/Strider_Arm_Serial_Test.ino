@@ -345,7 +345,7 @@ void loop()
 			lArm_Servo5.detach();
 			break;
 		case 'A':
-			switch(buffer[2])
+			switch(buffer[1])
 			{
 				case 'A':
 					rArm_Servo1.attach(42); // Attaches(inputs the pin out to the Servo object) class) the servos to their respective pins
@@ -364,7 +364,7 @@ void loop()
 					lClaw.attach(10);
 					break;
 				case 'R':
-					switch(buffer[3])
+					switch(buffer[2])
 					{
 						case '1':
 							rArm_Servo1.attach(42);
@@ -392,7 +392,7 @@ void loop()
 					}
 					break;
 				case 'L':
-					switch(buffer[3])
+					switch(buffer[2])
 					{
 						case '1':
 							lArm_Servo1.attach(43);
