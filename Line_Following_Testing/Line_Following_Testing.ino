@@ -9,20 +9,20 @@
 //*******************************************//
 //    Declaration of Motor Controller PINs   //
 //*******************************************//
-#define MFR_A_PIN		37  // FRONT RIGHT MOTOR 
-#define MFR_B_PIN		39 
-#define MFR_PWM_PIN		5 	// PULSE WIDTH MODULATION PIN
+#define MFR_A_PIN		11  // FRONT RIGHT MOTOR 
+#define MFR_B_PIN		12 
+#define MFR_PWM_PIN		13 	// PULSE WIDTH MODULATION PIN
 
-#define MFL_A_PIN		34	//FRONT LEFT MOTOR
-#define MFL_B_PIN 		32
-#define MFL_PWM_PIN		3	// PULSE WIDTH MODULATION PIN
+#define MFL_A_PIN		5	//FRONT LEFT MOTOR
+#define MFL_B_PIN 		6
+#define MFL_PWM_PIN		7	// PULSE WIDTH MODULATION PIN
 
-#define MBR_A_PIN		33	//BACK RIGHT MOTOR
-#define MBR_B_PIN		35
-#define MBR_PWM_PIN		4	// PULSE WIDTH MODULATION PIN
+#define MBR_A_PIN		9	//BACK RIGHT MOTOR
+#define MBR_B_PIN		10
+#define MBR_PWM_PIN		8	// PULSE WIDTH MODULATION PIN
 
-#define MBL_A_PIN		38	//BACK LEFT MOTOR
-#define MBL_B_PIN		36
+#define MBL_A_PIN		3	//BACK LEFT MOTOR
+#define MBL_B_PIN		4
 #define MBL_PWM_PIN		2 	// PULSE WIDTH MODULATION PIN 
 
 //**************************************//
@@ -77,8 +77,17 @@ void setup()
 }
 
 int IRL_in;					// declaration of the buffer to store the output of all  s0- s7 pins of the KRF
-int diff = 0;					// decalaration of the variablediff; is used for the variation of the turning value.  
+
 int mPower = map(50, 0, 100, 80, 190);
+
+int mSpeedFR = 0;
+int mSpeedBR = 0;
+
+int mSpeedFL = 0;
+int mSpeedBL = 0;
+
+char buffer[] = {' ',' ',' ',' ',' ',' ',' '}; // Receive up to 7 bytes (Used to store the input from communication)
+char pwm[] = {' ', ' ', ' '};
 
 void loop()
 {
@@ -98,8 +107,8 @@ void loop()
 
 			Serial.println("L0000");
 			
-			digitalWrite(MFR_A_PIN, HIGH);
-			digitalWrite(MFR_B_PIN, LOW);
+			digitalWrite(MFR_A_PIN, LOW);
+			digitalWrite(MFR_B_PIN, HIGH);
 			
 			digitalWrite(MBR_A_PIN, HIGH);
 			digitalWrite(MBR_B_PIN, LOW);
