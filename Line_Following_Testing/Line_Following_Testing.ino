@@ -37,6 +37,7 @@
 #define IRL_PIN_s6	28
 #define IRL_PIN_s7	29
 
+int x = 110;
 
 //***********************************************//
 //    Stetting up peripherals to run code once   //
@@ -72,13 +73,42 @@ void setup()
 	pinMode(IRL_PIN_s4, INPUT);		// Sets the pin mode of the I/O pin indicated by the #defined object as output
 	pinMode(IRL_PIN_s5, INPUT);		// Sets the pin mode of the I/O pin indicated by the #defined object as output
 	pinMode(IRL_PIN_s6, INPUT);		// Sets the pin mode of the I/O pin indicated by the #defined object as output
-	pinMode(IRL_PIN_s7, INPUT);		// Sets the pin mode of the I/O pin indicated by the #defined object as output
+	pinMode(IRL_PIN_s7, INPUT);		// Sets the pin mode of the I/O pin indicated by the #defined object as outpu
 	
+	Serial.println("Ramp");
+	digitalWrite(MFR_A_PIN, LOW);
+	digitalWrite(MFR_B_PIN, HIGH);
+	
+	digitalWrite(MFL_A_PIN, LOW);
+	digitalWrite(MFL_B_PIN, HIGH);
+	
+	digitalWrite(MBR_A_PIN, HIGH);
+	digitalWrite(MBR_B_PIN, LOW);
+	
+	digitalWrite(MBL_A_PIN, LOW);
+	digitalWrite(MBL_B_PIN, HIGH);
+	
+	for(int i = 60; i < 125; i += 3)
+	{
+		analogWrite(MFR_PWM_PIN, i);
+		analogWrite(MFL_PWM_PIN, i);
+		
+		analogWrite(MBR_PWM_PIN, i);
+		analogWrite(MBL_PWM_PIN, i);
+		delay(50);
+	}	
+	for(int i = 125; i > x; i -= 2)
+	{
+		analogWrite(MFR_PWM_PIN, i);
+		analogWrite(MFL_PWM_PIN, i);
+		
+		analogWrite(MBR_PWM_PIN, i);
+		analogWrite(MBL_PWM_PIN, i);
+		delay(50);
+	}
 }
 
 int IRL_in;					// declaration of the buffer to store the output of all  s0- s7 pins of the KRF
-
-int mPower = map(50, 0, 100, 80, 190);
 
 int mSpeedFR = 0;
 int mSpeedBR = 0;
@@ -86,7 +116,6 @@ int mSpeedBR = 0;
 int mSpeedFL = 0;
 int mSpeedBL = 0;
 
-char buffer[] = {' ',' ',' ',' ',' ',' ',' '}; // Receive up to 7 bytes (Used to store the input from communication)
 char pwm[] = {' ', ' ', ' '};
 
 void loop()
@@ -96,234 +125,123 @@ void loop()
 	for(int i = 0; i <= 7; i++)
 	{
 		IRL_in = (IRL_in << 1) + digitalRead(IRL_PIN_s7 - i);
-		Serial.println(IRL_in, BIN);
 	}
 	Serial.println(IRL_in, BIN);
 	
 	switch(IRL_in)
 	{
-		case 0b00111111:
-		case 0b00011111:
-
-			Serial.println("L0000");
-			
+		//Sensor conditions that indicate that the line is at the center
+		case 0b11000011:
+		case 0b11100011:
+		case 0b11000111:
+			Serial.println("00L00");
 			digitalWrite(MFR_A_PIN, LOW);
 			digitalWrite(MFR_B_PIN, HIGH);
 			
-			digitalWrite(MBR_A_PIN, HIGH);
-			digitalWrite(MBR_B_PIN, LOW);
-		
 			digitalWrite(MFL_A_PIN, LOW);
 			digitalWrite(MFL_B_PIN, HIGH);
-		
+			
+			digitalWrite(MBR_A_PIN, HIGH);
+			digitalWrite(MBR_B_PIN, LOW);
+			
 			digitalWrite(MBL_A_PIN, LOW);
 			digitalWrite(MBL_B_PIN, HIGH);
-		
-			analogWrite(MFR_PWM_PIN, mPower);
-			analogWrite(MFL_PWM_PIN, mPower);
 			
-			analogWrite(MBR_PWM_PIN, mPower);
-			analogWrite(MBL_PWM_PIN, mPower);
+			analogWrite(MFR_PWM_PIN, x);
+			analogWrite(MFL_PWM_PIN, x);
+			
+			analogWrite(MBR_PWM_PIN, x);
+			analogWrite(MBL_PWM_PIN, x);
 			break;
-		case 0b00011111:
+			
 		case 0b10001111:
+		case 0b00011111:
+			Serial.println("0L000");
+			digitalWrite(MFR_A_PIN, LOW);
+			digitalWrite(MFR_B_PIN, HIGH);
 			
-			Serial.println("LL000");
-			
-			diff = 20;
-			
-			digitalWrite(MFR_A_PIN, HIGH);
-			digitalWrite(MFR_B_PIN, LOW);
-			
-			digitalWrite(MBR_A_PIN, HIGH);
-			digitalWrite(MBR_B_PIN, LOW);
-		
 			digitalWrite(MFL_A_PIN, LOW);
 			digitalWrite(MFL_B_PIN, HIGH);
-		
+			
+			digitalWrite(MBR_A_PIN, HIGH);
+			digitalWrite(MBR_B_PIN, LOW);
+			
 			digitalWrite(MBL_A_PIN, LOW);
-			digitalWrite(MBL_B_PIN, HIGH); 
+			digitalWrite(MBL_B_PIN, HIGH);
 			
-			analogWrite(MFR_PWM_PIN, mPower - diff);
-			analogWrite(MFL_PWM_PIN, mPower);
+			analogWrite(MFR_PWM_PIN, x + 20);
+			analogWrite(MFL_PWM_PIN, x);
 			
-			analogWrite(MBR_PWM_PIN, mPower - diff);
-			analogWrite(MBL_PWM_PIN, mPower);
+			analogWrite(MBR_PWM_PIN, x + 20);
+			analogWrite(MBL_PWM_PIN, x);
 			break;
 			
-		case 0b11000111:
-                        Serial.println("0LL00");
-		
-			diff = 20;
-			
-			digitalWrite(MFR_A_PIN, HIGH);
-			digitalWrite(MFR_B_PIN, LOW);
-			
-			digitalWrite(MBR_A_PIN, HIGH);
-			digitalWrite(MBR_B_PIN, LOW);
-						
-			digitalWrite(MFL_A_PIN, HIGH);
-			digitalWrite(MFL_B_PIN, LOW);
-				
-			digitalWrite(MBL_A_PIN, HIGH);
-			digitalWrite(MBL_B_PIN, LOW);
-		
-			analogWrite(MFR_PWM_PIN, mPower - diff);
-			analogWrite(MFL_PWM_PIN, mPower);
-			
-			analogWrite(MBR_PWM_PIN, mPower - diff);
-			analogWrite(MBL_PWM_PIN, mPower);
-			break;
-		case 0b11100111:
-
-                        Serial.println("00L00");
-                        
-                        digitalWrite(MFR_A_PIN, HIGH);
-			digitalWrite(MFR_B_PIN, LOW);
-			
-			digitalWrite(MBR_A_PIN, HIGH);
-			digitalWrite(MBR_B_PIN, LOW);
-						
-			digitalWrite(MFL_A_PIN, HIGH);
-			digitalWrite(MFL_B_PIN, LOW);
-				
-			digitalWrite(MBL_A_PIN, HIGH);
-			digitalWrite(MBL_B_PIN, LOW);
-		
-			analogWrite(MFR_PWM_PIN, mPower);
-			analogWrite(MFL_PWM_PIN, mPower);
-			
-			analogWrite(MBR_PWM_PIN, mPower);
-			analogWrite(MBL_PWM_PIN, mPower);
-			break;
-		case 0b11100011:
-		
-			Serial.println("00LL0");
-			
-			diff = 20;
-			
-			digitalWrite(MFR_A_PIN, HIGH);
-			digitalWrite(MFR_B_PIN, LOW);
-			
-			digitalWrite(MBR_A_PIN, HIGH);
-			digitalWrite(MBR_B_PIN, LOW);
-						
-			digitalWrite(MFL_A_PIN, HIGH);
-			digitalWrite(MFL_B_PIN, LOW);
-				
-			digitalWrite(MBL_A_PIN, HIGH);
-			digitalWrite(MBL_B_PIN, LOW);
-		
-			analogWrite(MFR_PWM_PIN, mPower);
-			analogWrite(MFL_PWM_PIN, mPower - diff);
-			
-			analogWrite(MBR_PWM_PIN, mPower);
-			analogWrite(MBL_PWM_PIN, mPower - diff);
-			break;
-		case 0b11110011:
-		
-			Serial.println("000L0");
-			
-			diff = 50;
-			
-			digitalWrite(MFR_A_PIN, HIGH);
-			digitalWrite(MFR_B_PIN, LOW);
-			
-			digitalWrite(MBR_A_PIN, HIGH);
-			digitalWrite(MBR_B_PIN, LOW);
-						
-			digitalWrite(MFL_A_PIN, HIGH);
-			digitalWrite(MFL_B_PIN, LOW);
-				
-			digitalWrite(MBL_A_PIN, HIGH);
-			digitalWrite(MBL_B_PIN, LOW);
-			
-			analogWrite(MFR_PWM_PIN, mPower);
-			analogWrite(MFL_PWM_PIN, mPower);
-			
-			analogWrite(MBR_PWM_PIN, mPower);
-			analogWrite(MBL_PWM_PIN, mPower);
-			break;
-		case 0b11111001:
 		case 0b11110001:
-			
-			Serial.println("000LL");
-		
-			diff = 20;
-			
+		case 0b11111000:
+			Serial.println("000L0");
 			digitalWrite(MFR_A_PIN, LOW);
 			digitalWrite(MFR_B_PIN, HIGH);
-	
-			digitalWrite(MBR_A_PIN, LOW);
-			digitalWrite(MBR_B_PIN, HIGH);
+			
+			digitalWrite(MFL_A_PIN, LOW);
+			digitalWrite(MFL_B_PIN, HIGH);
+			
+			digitalWrite(MBR_A_PIN, HIGH);
+			digitalWrite(MBR_B_PIN, LOW);
+			
+			digitalWrite(MBL_A_PIN, LOW);
+			digitalWrite(MBL_B_PIN, HIGH);
+			
+			analogWrite(MFR_PWM_PIN, x);
+			analogWrite(MFL_PWM_PIN, x + 20);
+			
+			analogWrite(MBR_PWM_PIN, x);
+			analogWrite(MBL_PWM_PIN, x + 20);
+			break;
+			
+		case 0b00111111:
+		case 0b01111111:
+			Serial.println("L0000");
+			digitalWrite(MFR_A_PIN, LOW);
+			digitalWrite(MFR_B_PIN, HIGH);
 			
 			digitalWrite(MFL_A_PIN, HIGH);
 			digitalWrite(MFL_B_PIN, LOW);
-				
+			
+			digitalWrite(MBR_A_PIN, HIGH);
+			digitalWrite(MBR_B_PIN, LOW);
+			
 			digitalWrite(MBL_A_PIN, HIGH);
 			digitalWrite(MBL_B_PIN, LOW);
 			
-			analogWrite(MFR_PWM_PIN, mPower);
-			analogWrite(MFL_PWM_PIN, mPower - diff);
+			analogWrite(MFR_PWM_PIN, x);
+			analogWrite(MFL_PWM_PIN, x);
 			
-			analogWrite(MBR_PWM_PIN, mPower);
-			analogWrite(MBL_PWM_PIN, mPower - diff);
+			analogWrite(MBR_PWM_PIN, x);
+			analogWrite(MBL_PWM_PIN, x);
 			break;
 		case 0b11111100:
-		case 0b11111000:
-		
+		case 0b11111110:
 			Serial.println("0000L");
-		
-			digitalWrite(MFR_A_PIN, LOW);
-			digitalWrite(MFR_B_PIN, HIGH);
-	
+			digitalWrite(MFR_A_PIN, HIGH);
+			digitalWrite(MFR_B_PIN, LOW);
+			
+			digitalWrite(MFL_A_PIN, LOW);
+			digitalWrite(MFL_B_PIN, HIGH);
+			
 			digitalWrite(MBR_A_PIN, LOW);
 			digitalWrite(MBR_B_PIN, HIGH);
 			
-			digitalWrite(MFL_A_PIN, HIGH);
-			digitalWrite(MFL_B_PIN, LOW);
-				
-			digitalWrite(MBL_A_PIN, HIGH);
-			digitalWrite(MBL_B_PIN, LOW);
+			digitalWrite(MBL_A_PIN, LOW);
+			digitalWrite(MBL_B_PIN, HIGH);
 			
-			analogWrite(MFR_PWM_PIN, mPower);
-			analogWrite(MFL_PWM_PIN, mPower);
+			analogWrite(MFR_PWM_PIN, x);
+			analogWrite(MFL_PWM_PIN, x);
 			
-			analogWrite(MBR_PWM_PIN, mPower);
-			analogWrite(MBL_PWM_PIN, mPower);
+			analogWrite(MBR_PWM_PIN, x);
+			analogWrite(MBL_PWM_PIN, x);
 			break;
-		case 0b00001111:
-		case 0b00000111:
-			
-			Serial.println("LLL00");
-			
-			analogWrite(MFR_PWM_PIN, mPower);
-			analogWrite(MFL_PWM_PIN, mPower);
-			
-			analogWrite(MBR_PWM_PIN, mPower);
-			analogWrite(MBL_PWM_PIN, mPower);
-			break;
-		case 0b11110000:
-		case 0b11100000:
-			
-			Serial.println("00LLL");
-		
-			analogWrite(MFR_PWM_PIN, mPower);
-			analogWrite(MFL_PWM_PIN, mPower);
-			
-			analogWrite(MBR_PWM_PIN, mPower);
-			analogWrite(MBL_PWM_PIN, mPower);
-			break;
-			
 		default:
-		
 			Serial.println("Default Error");
-			
-			analogWrite(MFR_PWM_PIN, 0);
-			analogWrite(MFL_PWM_PIN, 0);
-			
-			analogWrite(MBR_PWM_PIN, 0);
-			analogWrite(MBL_PWM_PIN, 0);
             	break;
 	}
 }
