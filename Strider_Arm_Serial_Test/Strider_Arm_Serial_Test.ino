@@ -1,12 +1,18 @@
 #include <Servo.h>
 
-#DEFINE R_ARM1_PIN
-#DEFINE R_ARM2_PIN
-#DEFINE R_ARM3_PIN
-#DEFINE R_ARM4_PIN
-#DEFINE R_ARM5_PIN
-#DEFINE R_ARMC_PIN
+#define R_ARM1_PIN 42
+#define R_ARM2_PIN 44
+#define R_ARM3_PIN 46
+#define R_ARM4_PIN 48
+#define R_ARM5_PIN 50
+#define R_ARMC_PIN 52
 
+#define L_ARM1_PIN 43
+#define L_ARM2_PIN 45
+#define L_ARM3_PIN 47
+#define L_ARM4_PIN 49
+#define L_ARM5_PIN 51
+#define L_ARMC_PIN 53
 
 Servo rArm_Servo1;
 Servo rArm_Servo2;
@@ -75,7 +81,6 @@ void loop()
 		case 'I':
 			rArm_Servo1.write(180);
 			rArm_Servo2.write(170);
-			rArm_Servo2b.write(180);
 			rArm_Servo3.write(170);
 			rArm_Servo4.write(170);
 			rArm_Servo5.write(170);
@@ -174,6 +179,23 @@ void loop()
 						for(int pos = currentAng; pos > ang; pos -= 1) 	// goes from 0 degrees to 180 degrees 
 						{						// in steps of 1 degree 
 							rArm_Servo5.write(pos);		// tell servo to go to position in variable 'pos' 
+							delay(15);			// waits 15ms for the servo to reach the position 
+						}
+					}
+					break;
+				case 'C':
+					currentAng = rClaw.read();
+					if(currentAng < ang)
+					{
+						for(int pos = currentAng; pos < ang; pos += 1) 	// goes from 0 degrees to 180 degrees 
+						{						// in steps of 1 degree 
+							rClaw.write(pos);		// tell servo to go to position in variable 'pos' 
+							delay(15);			// waits 15ms for the servo to reach the position 
+						}	
+					}else{
+						for(int pos = currentAng; pos > ang; pos -= 1) 	// goes from 0 degrees to 180 degrees 
+						{						// in steps of 1 degree 
+							rClaw.write(pos);		// tell servo to go to position in variable 'pos' 
 							delay(15);			// waits 15ms for the servo to reach the position 
 						}
 					}
@@ -356,40 +378,40 @@ void loop()
 			switch(buffer[1])
 			{
 				case 'A':
-					rArm_Servo1.attach(4O); // Attaches(inputs the pin out to the Servo object) class) the servos to their respective pins
-					rArm_Servo2.attach(42);
-					rArm_Servo3.attach(44);
-					rArm_Servo4.attach(46);
-					rArm_Servo5.attach(4);
-					rClaw.attach(52);
+					rArm_Servo1.attach(R_ARM1_PIN); // Attaches(inputs the pin out to the Servo object) class) the servos to their respective pins
+					rArm_Servo2.attach(R_ARM2_PIN);
+					rArm_Servo3.attach(R_ARM3_PIN);
+					rArm_Servo4.attach(R_ARM4_PIN);
+					rArm_Servo5.attach(R_ARM5_PIN);
+					rClaw.attach(R_ARMC_PIN);
 					
-					lArm_Servo1.attach(43); // Attaches(inputs the pin out to the Servo object) class) the servos to their respective pins
-					lArm_Servo2.attach(45);
-					lArm_Servo3.attach(47);
-					lArm_Servo4.attach(49);
-					lArm_Servo5.attach(51);
-					lClaw.attach(10);
+					lArm_Servo1.attach(L_ARM1_PIN); // Attaches(inputs the pin out to the Servo object) class) the servos to their respective pins
+					lArm_Servo2.attach(L_ARM2_PIN);
+					lArm_Servo3.attach(L_ARM3_PIN);
+					lArm_Servo4.attach(L_ARM4_PIN);
+					lArm_Servo5.attach(L_ARM5_PIN);
+					lClaw.attach(L_ARMC_PIN);
 					break;
 				case 'R':
 					switch(buffer[2])
 					{
 						case '1':
-							rArm_Servo1.attach(42);
+							rArm_Servo1.attach(R_ARM1_PIN);
 							break;
 						case '2':
-							rArm_Servo2.attach(44);
+							rArm_Servo2.attach(R_ARM2_PIN);
 							break;
 						case '3':
-							rArm_Servo3.attach(46);
+							rArm_Servo3.attach(R_ARM3_PIN);
 							break;
 						case '4':
-							rArm_Servo4.attach(48);
+							rArm_Servo4.attach(R_ARM4_PIN);
 							break;
 						case '5':
-							rArm_Servo5.attach(50);
+							rArm_Servo5.attach(R_ARM5_PIN);
 							break;
 						case 'C':
-							rClaw.attach(52);
+							rClaw.attach(R_ARMC_PIN);
 							break;
 						default:
 							Serial.print("buffer[3] => ");
@@ -401,22 +423,22 @@ void loop()
 					switch(buffer[2])
 					{
 						case '1':
-							lArm_Servo1.attach(43);
+							lArm_Servo1.attach(L_ARM1_PIN);
 							break;
 						case '2':
-							lArm_Servo2.attach(45);
+							lArm_Servo2.attach(L_ARM2_PIN);
 							break;
 						case '3':
-							lArm_Servo3.attach(47);
+							lArm_Servo3.attach(L_ARM3_PIN);
 							break;
 						case '4':
-							lArm_Servo4.attach(49);
+							lArm_Servo4.attach(L_ARM4_PIN);
 							break;
 						case '5':
-							lArm_Servo5.attach(51);
+							lArm_Servo5.attach(L_ARM5_PIN);
 							break;
 						case 'C':
-							lClaw.attach(10);
+							lClaw.attach(L_ARMC_PIN);
 							break;
 						default:
 							Serial.print("buffer[3] => ");
