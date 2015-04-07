@@ -311,6 +311,7 @@ void loop()
 							delay(15);			// waits 15ms for the servo to reach the position 
 						}
 					}
+					break;
 				case 'P':
 					maxAng = max(abs(lArm_Servo2.read() - 130), max(abs(lArm_Servo3.read() - 45), abs(lArm_Servo3.read() - 45)));
 					
