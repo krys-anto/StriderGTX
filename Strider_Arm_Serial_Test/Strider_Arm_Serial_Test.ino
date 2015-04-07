@@ -80,8 +80,8 @@ void loop()
 		case 'I':
 			rArm_Servo1.write(160);
 			rArm_Servo2.write(170);
-			rArm_Servo3.write(170);
-			rArm_Servo4.write(170);
+			rArm_Servo3.write(180);
+			rArm_Servo4.write(180);
 			rArm_Servo5.write(170);
 			
 			lArm_Servo1.write(5);
@@ -319,20 +319,25 @@ void loop()
 					}
 					break;
 				case 'C':
-					currentAng = lClaw.read();
-					if(currentAng < ang)
+					switch(buffer[2])
 					{
-						for(int pos = currentAng; pos < ang; pos += 1) 	// goes from 0 degrees to 180 degrees 
-						{						// in steps of 1 degree 
-							lClaw.write(pos);		// tell servo to go to position in variable 'pos' 
-							delay(15);			// waits 15ms for the servo to reach the position 
-						}	
-					}else{
-						for(int pos = currentAng; pos > ang; pos -= 1) 	// goes from 0 degrees to 180 degrees 
-						{						// in steps of 1 degree 
-							lClaw.write(pos);		// tell servo to go to position in variable 'pos' 
-							delay(15);			// waits 15ms for the servo to reach the position 
+						for(int i = 0; i < 2; i++)
+						{
+							pos[i] = buffer[i + 3];
 						}
+						
+						ang = atoi(pos);
+						case 'O':
+							myservo.writeMicroseconds(1500+35);
+  							delay(ang * 100);
+							break;
+						case 'C':
+							myservo.writeMicroseconds(1500-50);
+							delay(ang * 100);
+							break;
+						case 'S':
+							lClaw.writeMicroseconds(1500);
+							break;
 					}
 					break;
 				case 'A':
