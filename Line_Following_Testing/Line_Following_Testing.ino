@@ -88,7 +88,7 @@ void setup()
 	digitalWrite(MBL_A_PIN, LOW);
 	digitalWrite(MBL_B_PIN, HIGH);
 	
-	for(int i = 60; i < 125; i += 3)
+	for(int i = 100; i < 120; i += 2)
 	{
 		analogWrite(MFR_PWM_PIN, i);
 		analogWrite(MFL_PWM_PIN, i);
@@ -97,7 +97,7 @@ void setup()
 		analogWrite(MBL_PWM_PIN, i);
 		delay(50);
 	}	
-	for(int i = 125; i > x; i -= 2)
+	for(int i = 120; i > x; i -= 2)
 	{
 		analogWrite(MFR_PWM_PIN, i);
 		analogWrite(MFL_PWM_PIN, i);
@@ -153,10 +153,32 @@ void loop()
 			analogWrite(MBR_PWM_PIN, x);
 			analogWrite(MBL_PWM_PIN, x);
 			break;
+		
+		case 0b10000111:
+		case 0b00001111:
+			Serial.println("0L000");
+			digitalWrite(MFR_A_PIN, LOW);
+			digitalWrite(MFR_B_PIN, HIGH);
+			
+			digitalWrite(MFL_A_PIN, LOW);
+			digitalWrite(MFL_B_PIN, HIGH);
+			
+			digitalWrite(MBR_A_PIN, HIGH);
+			digitalWrite(MBR_B_PIN, LOW);
+			
+			digitalWrite(MBL_A_PIN, LOW);
+			digitalWrite(MBL_B_PIN, HIGH);
+			
+			analogWrite(MFR_PWM_PIN, x + 40);
+			analogWrite(MFL_PWM_PIN, x);
+			
+			analogWrite(MBR_PWM_PIN, x + 40);
+			analogWrite(MBL_PWM_PIN, x);
+			break;
 			
 		case 0b10001111:
 		case 0b00011111:
-			Serial.println("0L000");
+			Serial.println("0LL00");
 			digitalWrite(MFR_A_PIN, LOW);
 			digitalWrite(MFR_B_PIN, HIGH);
 			
@@ -175,7 +197,30 @@ void loop()
 			analogWrite(MBR_PWM_PIN, x + 20);
 			analogWrite(MBL_PWM_PIN, x);
 			break;
+		
+		case 0b11100001:
+		case 0b11110000:
 			
+			Serial.println("00LL0");
+			digitalWrite(MFR_A_PIN, LOW);
+			digitalWrite(MFR_B_PIN, HIGH);
+			
+			digitalWrite(MFL_A_PIN, LOW);
+			digitalWrite(MFL_B_PIN, HIGH);
+			
+			digitalWrite(MBR_A_PIN, HIGH);
+			digitalWrite(MBR_B_PIN, LOW);
+			
+			digitalWrite(MBL_A_PIN, LOW);
+			digitalWrite(MBL_B_PIN, HIGH);
+			
+			analogWrite(MFR_PWM_PIN, x);
+			analogWrite(MFL_PWM_PIN, x + 40);
+			
+			analogWrite(MBR_PWM_PIN, x);
+			analogWrite(MBL_PWM_PIN, x + 40);
+			break;
+		
 		case 0b11110001:
 		case 0b11111000:
 			Serial.println("000L0");
