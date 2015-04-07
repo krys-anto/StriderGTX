@@ -16,7 +16,6 @@
 
 Servo rArm_Servo1;
 Servo rArm_Servo2;
-Servo rArm_Servo2b;
 Servo rArm_Servo3;
 Servo rArm_Servo4;
 Servo rArm_Servo5;
@@ -120,14 +119,12 @@ void loop()
 						for(int pos = currentAng; pos < ang; pos += 1) 	// goes from 0 degrees to 180 degrees 
 						{						// in steps of 1 degree 
 							rArm_Servo2.write(pos);		// tell servo to go to position in variable 'pos'
-							rArm_Servo2b.write(pos + 10);
 							delay(15);			// waits 15ms for the servo to reach the position 
 						}	
 					}else{
 						for(int pos = currentAng; pos > ang; pos -= 1) 	// goes from 0 degrees to 180 degrees 
 						{						// in steps of 1 degree 
 							rArm_Servo2.write(pos);		// tell servo to go to position in variable 'pos'
-							rArm_Servo2b.write(pos + 10);
 							delay(15);			// waits 15ms for the servo to reach the position 
 						}
 					}
@@ -206,8 +203,6 @@ void loop()
 					Serial.println(rArm_Servo1.read());
 					Serial.print("Servo 2 =>");
 					Serial.println(rArm_Servo2.read());
-					Serial.print("Servo 2b =>");
-					Serial.println(rArm_Servo2b.read());
 					Serial.print("Servo 3 =>");
 					Serial.println(rArm_Servo3.read());
 					Serial.print("Servo 4 =>");
@@ -364,7 +359,6 @@ void loop()
 		case 'D':
 			rArm_Servo1.detach(); // detaches(inputs the pin out to the Servo object) class) the servos to their respective pins
 			rArm_Servo2.detach();
-			rArm_Servo2b.detach();
 			rArm_Servo3.detach();
 			rArm_Servo4.detach();
 			rArm_Servo5.detach();
