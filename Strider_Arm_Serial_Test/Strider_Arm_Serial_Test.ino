@@ -79,7 +79,7 @@ void loop()
 	switch(buffer[0])
 	{
 		case 'I':
-			rArm_Servo1.write(180);
+			rArm_Servo1.write(160);
 			rArm_Servo2.write(170);
 			rArm_Servo3.write(170);
 			rArm_Servo4.write(170);
