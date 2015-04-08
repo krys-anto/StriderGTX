@@ -1,4 +1,13 @@
 #include <Servo.h>
+/*
+===Current positions:===
+Servo 1 =>179
+Servo 2 =>46
+Servo 3 =>111
+Servo 4 =>166
+Servo 5 =>91
+
+*/
 
 #define R_ARM1_PIN 42
 #define R_ARM2_PIN 44
@@ -33,6 +42,7 @@ int currentAng = 0;
 
 char buffer[] = {' ',' ',' ',' ',' ',' ',' '}; // Receive up to 7 bytes (Used to store the input from communication)
 char pos[] = {' ', ' ', ' '};
+char delayTime[] = {' ', ' ', ' '};
 
 int ang2;
 int ang3;
@@ -78,18 +88,19 @@ void loop()
 	switch(buffer[0])
 	{
 		case 'I':
-			rArm_Servo1.write(160);
+			rArm_Servo1.write(150);
 			rArm_Servo2.write(170);
 			rArm_Servo3.write(180);
 			rArm_Servo4.write(180);
 			rArm_Servo5.write(170);
 			
-			lArm_Servo1.write(5);
+			lArm_Servo1.write(10);
 			lArm_Servo2.write(5);
-			
 			lArm_Servo3.write(5);
 			lArm_Servo4.write(5);
 			lArm_Servo5.write(5);
+			
+			lClaw.writeMicroseconds(1500);
 			break;
 		case 'R':
 			Serial.print("Right Arm, ");
@@ -319,24 +330,31 @@ void loop()
 					}
 					break;
 				case 'C':
+					for(int i = 0; i < 2; i++)
+					{
+						delayTime[i] = buffer[i + 3];
+					}
+						
+					ang = atoi(delayTime);
 					switch(buffer[2])
 					{
-						for(int i = 0; i < 2; i++)
-						{
-							pos[i] = buffer[i + 3];
-						}
-						
-						ang = atoi(pos);
 						case 'O':
-							myservo.writeMicroseconds(1500+35);
+							lClaw.writeMicroseconds(1500+35);
   							delay(ang * 100);
+  							lClaw.writeMicroseconds(1500);
 							break;
 						case 'C':
-							myservo.writeMicroseconds(1500-50);
+							lClaw.writeMicroseconds(1500-50);
 							delay(ang * 100);
+							lClaw.writeMicroseconds(1500);
 							break;
 						case 'S':
 							lClaw.writeMicroseconds(1500);
+							break;
+						default:
+							Serial.print("INVALD");
+							Serial.print("Buffer[1] -> ");
+							Serial.println(buffer[1]);
 							break;
 					}
 					break;
@@ -458,19 +476,27 @@ void loop()
 			break;
 	}
 	
+	
+	//Serial.print("Servo = ");
+	//Serial.println(buffer[1]);
+	//Serial.print(", CurrentAngle = ");
+	//Serial.println(currentAng);
+	//Serial.print(", Angle = ");
+	//Serial.println(ang);
+	
+	Serial.print("Buffer = ");
+	for(int i = 0; i < 7; i++)
+	{
+		Serial.print(buffer[i]);
+	}
 	Serial.println();
-	Serial.print("Servo = ");
-	Serial.println(buffer[1]);
-	Serial.print(", CurrentAngle = ");
-	Serial.println(currentAng);
-	Serial.print(", Angle = ");
-	Serial.println(ang);
 	
 	for(int i = 0; i < 7; i++)
 	{
 		if(i < 3)
 		{
 			pos[i] = ' ';
+			delayTime[i] = ' ';
 		}
 		buffer[i] = ' ';
 	}
