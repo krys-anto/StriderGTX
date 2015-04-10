@@ -390,20 +390,23 @@ void loop()
 			break;
 			
 		case 0b11111111:
+			Serial.println("LLLLL");
 			Stop_Motors();
 			break;
 		case 0b00000000:
+			Serial.println("00000");
 			Stop_Motors();
 			Forward_Motors();
 			
-			delay(200);
+			delay(250);
 			
 			Stop_Motors();
 			do
 			{
 				Turn_Left_Motors();
 				IRL_Read();
-			}while(IRL_in == 11111111);
+			}while(IRL_in == 11000011 || IRL_in == 11000111 || IRL_in == 11100011);
+			Serial.println("STOP AFTER WHILE");
 			Stop_Motors();
 			break;
 		default:
