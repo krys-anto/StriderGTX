@@ -205,8 +205,6 @@ char pwm[] = {' ', ' ', ' '};
 
 void loop()
 {
-	IRL_in = 0;
-	
 	IRL_Read();
 	
 	switch(IRL_in)
@@ -426,6 +424,8 @@ void Stop_Motors(void)
 
 void IRL_Read(void)
 {
+	IRL_in = 0;
+	
 	for(int i = 0; i <= 7; i++)
 	{
 		IRL_in = (IRL_in << 1) + digitalRead(IRL_PIN_s7 - i);
