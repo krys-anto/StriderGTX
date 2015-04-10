@@ -329,6 +329,61 @@ void loop()
 						delay(15);
 					}
 					break;
+				case 'G':
+				
+					currentAng = lArm_Servo4.read();
+					if(currentAng < 45)
+					{
+						for(int pos = currentAng; pos < 45; pos += 1) 	// goes from 0 degrees to 180 degrees 
+						{						// in steps of 1 degree 
+							lArm_Servo4.write(pos);		// tell servo to go to position in variable 'pos' 
+							delay(15);			// waits 15ms for the servo to reach the position 
+						}	
+					}else{
+						for(int pos = currentAng; pos > 45; pos -= 1) 	// goes from 0 degrees to 180 degrees 
+						{						// in steps of 1 degree 
+							lArm_Servo4.write(pos);		// tell servo to go to position in variable 'pos' 
+							delay(15);			// waits 15ms for the servo to reach the position 
+						}
+					}
+					
+					currentAng = lArm_Servo1.read();
+					if(lArm_Servo1.read() < 100)
+					{
+						for(int pos = currentAng; pos < 100; pos += 1) 	// goes from 0 degrees to 180 degrees 
+						{						// in steps of 1 degree 
+							lArm_Servo1.write(pos);		// tell servo to go to position in variable 'pos' 
+							delay(15);			// waits 15ms for the servo to reach the position 
+						}	
+					}else{
+						for(int pos = currentAng; pos > 100; pos -= 1) 	// goes from 0 degrees to 180 degrees 
+						{						// in steps of 1 degree 
+							lArm_Servo1.write(pos);		// tell servo to go to position in variable 'pos' 
+							delay(15);			// waits 15ms for the servo to reach the position 
+						}
+					}
+					
+					maxAng = max(abs(lArm_Servo2.read() - 5), max(abs(lArm_Servo3.read() - 29), abs(lArm_Servo3.read() - 11)));
+					for(int i = 0; i < maxAng; i++)
+					{
+						lArm_Servo2.write((lArm_Servo2.read() < 5) ? lArm_Servo2.read() + 1 : lArm_Servo2.read() - 1);
+						lArm_Servo3.write((lArm_Servo3.read() < 30) ? lArm_Servo3.read() + 1 : lArm_Servo3.read() - 1);
+						lArm_Servo4.write((lArm_Servo4.read() < 10) ? lArm_Servo4.read() + 1 : lArm_Servo4.read() - 1);
+						delay(15);
+					}
+					
+					lClaw.writeMicroseconds(1500-50);
+					delay(1000);
+					lClaw.writeMicroseconds(1500);
+					
+					delay(1000);
+					
+					lClaw.writeMicroseconds(1500-50);
+					delay(1000);
+					lClaw.writeMicroseconds(1500);
+					
+					
+					break;
 				case 'C':
 					for(int i = 0; i < 2; i++)
 					{
