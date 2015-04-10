@@ -405,7 +405,7 @@ void loop()
 			{
 				Turn_Left_Motors();
 				IRL_Read();
-			}while(IRL_in == 11000011 || IRL_in == 11000111 || IRL_in == 11100011);
+			}while(IRL_in ~= 11000011 || IRL_in ~= 11000111 || IRL_in ~= 11100011);
 			Serial.println("STOP AFTER WHILE");
 			Stop_Motors();
 			break;
