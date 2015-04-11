@@ -37,6 +37,10 @@ Servo lArm_Servo4;
 Servo lArm_Servo5;
 Servo lClaw;
 
+Servo Camera1;
+Servo Camera2;
+
+
 int ang = 0;
 int currentAng = 0;
 
@@ -425,8 +429,6 @@ void loop()
 					Serial.println(lArm_Servo4.read());
 					Serial.print("Servo 5 =>");
 					Serial.println(lArm_Servo5.read());
-					break;
-				case 'N':
 					break;
 				default:
 					Serial.print("Buffer[1] -> ");
