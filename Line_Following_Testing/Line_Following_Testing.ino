@@ -177,9 +177,8 @@ void setup()
 	
 	digitalWrite(MBL_A_PIN, LOW);
 	digitalWrite(MBL_B_PIN, HIGH);
-	
-	/*
-	for(int i = 0; i < 30; i += 1)
+
+	for(int i = 0; i < 40; i += 2)
 	{
 		analogWrite(MFR_PWM_PIN, xFR + i);
 		analogWrite(MFL_PWM_PIN, xFL + i);
@@ -189,7 +188,9 @@ void setup()
 		delay(50);
 	}
 	
-	for(int i = 30; i > -10 ; i -= 1)
+	delay(1000);
+	/*
+	for(int i = 30; i >  ; i -= 1)
 	{
 		analogWrite(MFR_PWM_PIN, xFR + i);
 		analogWrite(MFL_PWM_PIN, xFL + i);
@@ -202,12 +203,11 @@ void setup()
 }
 
 int IRL_in;					// declaration of the buffer to store the output of all  s0- s7 pins of the KRF
+int game_count = 0;
 
 char pwm[] = {' ', ' ', ' '};
 
-void loop()
-{
-	IRL_Read();
+void loop()IRL_Read();
 	
 	switch(IRL_in)
 	{
@@ -343,11 +343,11 @@ void loop()
 			digitalWrite(MBL_A_PIN, LOW);
 			digitalWrite(MBL_B_PIN, HIGH);
 			
-			analogWrite(MFR_PWM_PIN, 0);
-			analogWrite(MFL_PWM_PIN, 255);
+			analogWrite(MFR_PWM_PIN, 255);
+			analogWrite(MFL_PWM_PIN, 0);
 			
-			analogWrite(MBR_PWM_PIN, 0);
-			analogWrite(MBL_PWM_PIN, 255);
+			analogWrite(MBR_PWM_PIN, 255);
+			analogWrite(MBL_PWM_PIN, 0);
 			
 			
 			break;
@@ -385,11 +385,11 @@ void loop()
 			digitalWrite(MBL_A_PIN, LOW);
 			digitalWrite(MBL_B_PIN, HIGH);
 			
-			analogWrite(MFR_PWM_PIN, 255);
-			analogWrite(MFL_PWM_PIN, 0);
+			analogWrite(MFR_PWM_PIN, 0);
+			analogWrite(MFL_PWM_PIN, 255);
 			
-			analogWrite(MBR_PWM_PIN, 255);
-			analogWrite(MBL_PWM_PIN, 0);
+			analogWrite(MBR_PWM_PIN, 0);
+			analogWrite(MBL_PWM_PIN, 255);
 			break;
 		case 0b11111111:
 			Serial.println("00000");
@@ -398,6 +398,20 @@ void loop()
 		case 0b00000000:
 		
 			Serial.println("LLLLL");
+			
+			Stop_Motors();
+			
+			switch(game_count)
+			{
+				case 1:
+					break;
+				case 2:
+					break;
+				case 3:
+					break;
+				case 4:
+					break;
+			}
 		/*
 			Stop_Motors();
 			Forward_Motors();
@@ -426,13 +440,13 @@ void loop()
 			Stop_Motors();
 			Turn_Left_Motors(0);
 			delay(250);
-			do
+			while(IRL_in != 11000111 || IRL_in != 11000011 || IRL_in != 11100011 || IRL_in != 10000111 || IRL_in != 11100001)
 			{
-				Turn_Left_Motors(0);
 				IRL_Read();
-			}while(IRL_in != 11000111 || IRL_in != 11000011 || IRL_in != 11100011 || IRL_in != 10000111 || IRL_in != 11100001);
+			}
 			Serial.println("STOP AFTER WHILE");
 			Stop_Motors();
+			while(1);
 			break;
 		case 0b11100000:
 		case 0b11000000:
@@ -444,19 +458,22 @@ void loop()
 			delay(250);
 			
 			Stop_Motors();
-			do
+			Turn_Right_Motors(0);
+			while(IRL_in != 11000111 || IRL_in != 11000011 || IRL_in != 11100011 || IRL_in != 10000111 || IRL_in != 11100001)
 			{
-				Turn_Right_Motors(0);
 				IRL_Read();
-			}while(IRL_in != 11000011 || IRL_in != 11000111 || IRL_in != 11100011);
+			}
+			
 			Serial.println("STOP AFTER WHILE");
 			Stop_Motors();
-			while()
+			while(1);
 			break;
 		default:
 			Serial.println("Default Error");
             	break;
 	}
+{
+	
 }
 
 void Stop_Motors(void)
